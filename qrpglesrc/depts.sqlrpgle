@@ -90,6 +90,7 @@
 
             ClearSubfile();
 
+            //Department table usually lives in SAMPLE schema
             EXEC SQL DECLARE deptCur CURSOR FOR
               SELECT DEPTNO, DEPTNAME
               FROM DEPARTMENT;

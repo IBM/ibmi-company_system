@@ -7,7 +7,7 @@
 
       //---------------------------------------------------------------*
 
-       /copy qrpgleref,constants
+       /copy 'qrpgleref/constants.rpgle'
 
       //---------------------------------------------------------------*
 
@@ -134,6 +134,8 @@
               SelVal = %Trim(XSEL);
 
               Select;
+                //When the user takes option 5,
+                //call the employees program.
                 When (SelVal = '5');
                   //DSPLY XID;
                   Employees(XID);

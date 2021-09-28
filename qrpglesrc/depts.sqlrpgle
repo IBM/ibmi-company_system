@@ -1,5 +1,5 @@
 
-        Ctl-Opt DFTACTGRP(*no);
+        // Create as a module
 
         Dcl-Pr Employees ExtPgm;
           DepartmentNumber Char(3);

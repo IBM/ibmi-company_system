@@ -1,5 +1,5 @@
 
-        // Create as a module
+        Ctl-Opt DFTACTGRP(*no);
 
         Dcl-Pr Employees ExtPgm;
           DepartmentNumber Char(3);
@@ -90,7 +90,6 @@
 
             ClearSubfile();
 
-            //Department table usually lives in SAMPLE schema
             EXEC SQL DECLARE deptCur CURSOR FOR
               SELECT DEPTNO, DEPTNAME
               FROM DEPARTMENT;
@@ -135,10 +134,8 @@
               SelVal = %Trim(XSEL);
 
               Select;
-                //When the user takes option 5,
-                //call the employees program.
                 When (SelVal = '5');
-                  //DSPLY XID;
+                  //DSPLY @XID;
                   Employees(XID);
               Endsl;
 

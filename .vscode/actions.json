@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Build and deploy 🔨",
+    "command": "/QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB OPT=*EVENTF",
+    "environment": "pase",
+    "deployFirst": true,
+    "extensions": [
+      "GLOBAL"
+    ]
+  }
+]

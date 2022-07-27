@@ -136,7 +136,7 @@
               SelVal = %Trim(XSEL);
 
               Select;
-                When (SelVal = '6');
+                When (SelVal = '5');
                   //DSPLY @XID;
                   Employees(XID);
               Endsl;

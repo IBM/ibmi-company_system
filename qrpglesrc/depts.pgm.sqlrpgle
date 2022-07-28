@@ -7,7 +7,7 @@
 
       //---------------------------------------------------------------*
 
-     /copy '../qrpgleref/constants.rpgleinc'
+      /copy 'constants.rpgleinc'
 
 
 
@@ -50,7 +50,7 @@
       *
           Dcl-S Index Int(5);
 
-          Dcl-Ds Department ExtName('DEPARTMENT') Alias Qualified;
+          Dcl-Ds Department ExtName('SAMPLE/DEPARTMENT') Alias Qualified;
           End-Ds;
 
         //------------------------------------------------------------reb04

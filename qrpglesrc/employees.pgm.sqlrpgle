@@ -39,7 +39,7 @@ End-DS;
       //
 Dcl-S Index Int(5);
 
-Dcl-Ds Employee ExtName('SAMPLE/EMPLOYEE') Alias Qualified;
+Dcl-Ds Employee ExtName('EMPLOYEE') Alias Qualified;
 End-Ds;
 
         //------------------------------------------------------------reb04

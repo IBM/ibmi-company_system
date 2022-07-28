@@ -1,0 +1,16 @@
+{
+  "repository": "git@github.com:worksofliam/company_system.git",
+  "extensions": {
+    "arcad": {
+      "code": "CMPSYSA",
+      "libraryPrefix": "CPS",
+      "validated": true,
+      "iasp": ""
+    }
+  },
+  "description": "Company System ARCAD project",
+  "objlib": "&verlibcmpsysa",
+  "preUsrLibl": ["SAMPLE"],
+  "buildCommand": "elias compile {branch}",
+  "compileCommand": "elias compile {branch} -f {filename}"
+}

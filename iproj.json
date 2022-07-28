@@ -9,6 +9,7 @@
     }
   },
   "description": "Company System ARCAD project",
+  "includePath": ["qrpgleref"],
   "objlib": "&verlibcmpsysa",
   "preUsrLibl": ["SAMPLE"],
   "buildCommand": "elias compile {branch}",

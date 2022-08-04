@@ -2,8 +2,8 @@
   "repository": "git@github.com:aecspades/company_system.git",
   "extensions": {
     "arcad": {
-      "code": "CSY",
-      "libraryPrefix": "CSY",
+      "code": "CMPSYSA",
+      "libraryPrefix": "CPS",
       "validated": true,
       "iasp": ""
     }

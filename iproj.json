@@ -1,0 +1,21 @@
+{
+  "repository": "git@github.com:aecspades/company_system.git",
+  "extensions": {
+    "arcad": {
+      "code": "CSY",
+      "libraryPrefix": "CSY",
+      "validated": true,
+      "iasp": ""
+    }
+  },
+  "description": "Company System ARCAD project",
+  "includePath": [
+    "qrpgleref"
+  ],
+  "objlib": "&verlibcsy",
+  "preUsrLibl": [
+    "SAMPLE"
+  ],
+  "buildCommand": "elias compile {branch}",
+  "compileCommand": "elias compile {branch} -f {filename}"
+}

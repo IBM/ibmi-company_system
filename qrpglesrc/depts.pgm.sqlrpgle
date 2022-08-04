@@ -7,7 +7,7 @@
 
       //---------------------------------------------------------------*
 
-       /copy qrpgleref,constants
+      /copy 'constants.rpgleinc'
 
 
 
@@ -136,7 +136,7 @@
               SelVal = %Trim(XSEL);
 
               Select;
-                When (SelVal = '5');
+                When (SelVal = '6');
                   //DSPLY @XID;
                   Employees(XID);
               Endsl;

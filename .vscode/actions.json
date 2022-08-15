@@ -18,12 +18,12 @@
     ]
   },
   {
-    "name": "Deploy & build with bob 🔨",
-    "command": "OPT=*EVENTF BUILDLIB=&CURLIB /QOpenSys/pkgs/bin/makei build",
+    "name": "Build and deploy current with make 🔨",
+    "command": "/QOpenSys/pkgs/bin/gmake &BASENAME BIN_LIB=&CURLIB OPT=*EVENTF",
+    "environment": "pase",
+    "deployFirst": true,
     "extensions": [
       "GLOBAL"
-    ],
-    "environment": "pase",
-    "deployFirst": true
+    ]
   }
 ]

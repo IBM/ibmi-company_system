@@ -39,7 +39,7 @@ End-DS;
       //
 Dcl-S Index Int(5);
 
-Dcl-Ds Employee ExtName('EMPLOYEE') Alias Qualified;
+Dcl-Ds Employee ExtName('SAMPLE/EMPLOYEE') Alias Qualified;
 End-Ds;
 
         //------------------------------------------------------------reb04
@@ -83,7 +83,7 @@ Dcl-Proc LoadSubfile;
 
   EXEC SQL DECLARE empCur CURSOR FOR
               SELECT EMPNO, FIRSTNME, LASTNAME, JOB
-              FROM EMPLOYEE
+              FROM SAMPLE.EMPLOYEE
               WHERE WORKDEPT = :DEPTNO;
 
   EXEC SQL OPEN empCur;

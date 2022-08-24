@@ -16,6 +16,6 @@
   "preUsrLibl": [
     "SAMPLE"
   ],
-  "buildCommand": "elias compile {branch}",
-  "compileCommand": "elias compile {branch} -f {filename}"
+  "buildCommand": "/QOpenSys/pkgs/bin/elias compile {branch}",
+  "compileCommand": "/QOpenSys/pkgs/bin/elias compile {branch} -f {filename}"
 }

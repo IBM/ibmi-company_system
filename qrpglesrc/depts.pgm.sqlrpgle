@@ -7,7 +7,7 @@
 
       //---------------------------------------------------------------*
 
-      /copy 'constants.rpgleinc'
+      /include 'constants.rpgleinc'
 
 
 

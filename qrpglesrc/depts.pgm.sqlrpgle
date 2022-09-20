@@ -50,7 +50,7 @@
       *
           Dcl-S Index Int(5);
 
-          Dcl-Ds Department ExtName('SAMPLE/DEPARTMENT') Alias Qualified;
+          Dcl-Ds Department ExtName('DEPARTMENT') Alias Qualified;
           End-Ds;
 
           

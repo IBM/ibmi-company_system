@@ -1,6 +1,6 @@
 -- https://www.ibm.com/docs/en/i/7.3?topic=tables-employee-table-employee
 
-CREATE TABLE EMPLOYEE
+CREATE OR REPLACE TABLE EMPLOYEE
       (EMPNO       CHAR(6)         NOT NULL,
        FIRSTNME    VARCHAR(12)     NOT NULL,
        MIDINIT     CHAR(1)         NOT NULL,

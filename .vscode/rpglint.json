@@ -1,4 +1,5 @@
 {
+  "indent": 2,
   "BlankStructNamesCheck": true,
   "QualifiedCheck": false,
   "PrototypeCheck": true,

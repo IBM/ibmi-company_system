@@ -12,10 +12,8 @@
   "includePath": [
     "qrpgleref"
   ],
+  "curlib": "&verlibcsy",
   "objlib": "&verlibcsy",
-  "preUsrLibl": [
-    "SAMPLE"
-  ],
   "buildCommand": "/QOpenSys/pkgs/bin/elias compile {branch}",
   "compileCommand": "/QOpenSys/pkgs/bin/elias compile {branch} -f {filename}"
 }

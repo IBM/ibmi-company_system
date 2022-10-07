@@ -15,7 +15,7 @@
   "NoGlobalSubroutines": true,
   "NoLocalSubroutines": true,
   "UppercaseDirectives": true,
-  "NoUnreferenced": true,
+  "NoUnreferenced": false,
   "NoExternalTo": ["qsygetph"],
   "NoExtProgramVariable": true
 }

@@ -9,6 +9,15 @@
     ]
   },
   {
+    "name": "Call program",
+    "command": "CALL &CURLIB/&NAME",
+    "environment": "ile",
+    "deployFirst": true,
+    "extensions": [
+      "RPGLE"
+    ]
+  },
+  {
     "name": "Build and deploy with make 🔨",
     "command": "/QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB OPT=*EVENTF",
     "environment": "pase",

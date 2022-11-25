@@ -1,5 +1,5 @@
 {
-  "repository": "git@github.com:worksofliam/company_system.git",
+  "repository": "git@github.com:IBM/ibmi-company_system.git",
   "extensions": {
     "arcad": {
       "code": "CMPSYSA",

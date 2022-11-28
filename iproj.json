@@ -1,14 +1,6 @@
 {
   "repository": "git@github.com:IBM/ibmi-company_system.git",
-  "extensions": {
-    "arcad": {
-      "code": "CMPSYSA",
-      "libraryPrefix": "CPS",
-      "validated": true,
-      "iasp": ""
-    }
-  },
-  "description": "Company System ARCAD project",
+  "description": "Company System project",
   "includePath": [
     "qrpgleref"
   ],

@@ -5,7 +5,5 @@
     "qrpgleref"
   ],
   "curlib": "&verlibcsy",
-  "objlib": "&verlibcsy",
-  "buildCommand": "/QOpenSys/pkgs/bin/elias compile {branch}",
-  "compileCommand": "/QOpenSys/pkgs/bin/elias compile {branch} -f {filename}"
+  "objlib": "&verlibcsy"
 }

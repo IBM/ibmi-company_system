@@ -7,7 +7,7 @@
 
       //---------------------------------------------------------------*
 
-      /include 'constants.rpgleinc'
+      /include 'qrpgleref/constants.rpgleinc'
 
 
 

@@ -96,7 +96,7 @@
 
             EXEC SQL DECLARE deptCur CURSOR FOR
               SELECT DEPTNO, DEPTNAME
-              FROM SAMPLE.DEPARTMENT;
+              FROM DEPARTMENT;
 
             EXEC SQL OPEN deptCur;
 

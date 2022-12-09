@@ -83,12 +83,12 @@ Dcl-Proc LoadSubfile;
 
   EXEC SQL DECLARE empCur CURSOR FOR
               SELECT EMPNO, FIRSTNME, LASTNAME, JOB
-              FROM SAMPLE.EMPLOYEE
+              FROM EMPLOYEE
               WHERE WORKDEPT = :DEPTNO;
 
   EXEC SQL OPEN empCur;
 
-  if (sqlstate = '00000');
+  if (sqlstate = '00001');
 
     dou (sqlstate <> '00000');
       EXEC SQL

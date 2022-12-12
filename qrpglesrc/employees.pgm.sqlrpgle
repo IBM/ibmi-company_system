@@ -88,7 +88,7 @@ Dcl-Proc LoadSubfile;
 
   EXEC SQL OPEN empCur;
 
-  if (sqlstate = '00001');
+  if (sqlstate = '00000');
 
     dou (sqlstate <> '00000');
       EXEC SQL

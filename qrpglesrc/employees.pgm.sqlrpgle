@@ -1,6 +1,8 @@
 **free
 Ctl-Opt DFTACTGRP(*no);
 
+// New change
+
 Dcl-Pi EMPLOYEES;
   DEPTNO Char(3);
 End-Pi;

@@ -1,0 +1,27 @@
+name: rpglint CI
+
+on:
+  push:
+    # Set your workflow to run on push events to the main branch
+    branches: [ "main" ]
+  pull_request:
+    # Set your workflow to run on pull_request events that target the main branch
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm i -g rpglint
+    - run: rpglint

@@ -5,13 +5,15 @@ Dcl-Pi EMPLOYEES;
   DEPTNO Char(3);
 End-Pi;
 
-      //---------------------------------------------------------------*
+Dcl-C SQLOK '00000';
 
-/include 'qrpgleref/constants.rpgleinc'
+// ---------------------------------------------------------------*
 
-      //---------------------------------------------------------------*
+/INCLUDE 'qrpgleref/constants.rpgleinc'
 
-Dcl-F emps WORKSTN Sfile(SFLDta:Rrn) IndDS(WkStnInd) InfDS(fileinfo);
+// ---------------------------------------------------------------*
+
+Dcl-F emps WORKSTN Sfile(SFLDta:Rrn) IndDS(WkStnInd) InfDS(FILEINFO);
 
 Dcl-S Exit Ind Inz(*Off);
 
@@ -35,14 +37,14 @@ Dcl-DS FILEINFO;
   FUNKEY         Char(1)    Pos(369);
 End-DS;
 
-      //---------------------------------------------------------------*
-      //
+// ---------------------------------------------------------------*
+//
 Dcl-S Index Int(5);
 
 Dcl-Ds Employee ExtName('EMPLOYEE') Alias Qualified;
 End-Ds;
 
-        //------------------------------------------------------------reb04
+// ------------------------------------------------------------reb04
 Exit = *Off;
 LoadSubfile();
 
@@ -61,7 +63,7 @@ Enddo;
 *INLR = *ON;
 Return;
 
-        //------------------------------------------------------------
+// ------------------------------------------------------------
 
 Dcl-Proc ClearSubfile;
   SflDspCtl = *Off;
@@ -71,7 +73,7 @@ Dcl-Proc ClearSubfile;
 
   SflDspCtl = *On;
 
-  rrn = 0;
+  Rrn = 0;
 End-Proc;
 
 Dcl-Proc LoadSubfile;
@@ -88,9 +90,9 @@ Dcl-Proc LoadSubfile;
 
   EXEC SQL OPEN empCur;
 
-  if (sqlstate = '00000');
+  if (sqlstate = SQLOK);
 
-    dou (sqlstate <> '00000');
+    dou (sqlstate <> SQLOK);
       EXEC SQL
                   FETCH NEXT FROM empCur
                   INTO :Employee.EMPNO,
@@ -98,13 +100,13 @@ Dcl-Proc LoadSubfile;
                        :Employee.LASTNAME,
                        :Employee.JOB;
 
-      if (sqlstate = '00000');
+      if (sqlstate = SQLOK);
         XID   = Employee.EMPNO;
         XNAME = %TrimR(Employee.LASTNAME) + ', '
                          + %TrimR(Employee.FIRSTNME);
         XJOB  = Employee.JOB;
 
-        rrn += 1;
+        Rrn += 1;
         Write SFLDTA;
       endif;
     enddo;
@@ -113,7 +115,7 @@ Dcl-Proc LoadSubfile;
 
   EXEC SQL CLOSE empCur;
 
-  If (rrn > 0);
+  If (Rrn > 0);
     SflDsp = *On;
     SFLRRN = 1;
   Endif;
@@ -138,7 +140,7 @@ Dcl-Proc HandleInputs;
     If (XSEL <> *Blank);
       XSEL = *Blank;
       Update SFLDTA;
-      SFLRRN = rrn;
+      SFLRRN = Rrn;
     Endif;
   Enddo;
 End-Proc;

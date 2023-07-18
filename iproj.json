@@ -4,6 +4,6 @@
   "includePath": [
     "qrpgleref"
   ],
-  "curlib": "&verlibcsy",
-  "objlib": "&verlibcsy"
+  "curlib": "&CURLIB",
+  "objlib": "&CURLIB"
 }

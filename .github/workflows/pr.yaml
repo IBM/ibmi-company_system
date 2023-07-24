@@ -1,0 +1,28 @@
+on: pull_request
+    
+jobs:
+  release:
+    name: Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - run: npm i @halcyontech/rmake -g
+      
+      - run: npm install -g vsce
+
+      - name: Find impact
+        id: impact
+        run: rmake -l $(git diff --name-only "$(git merge-base main HEAD)")
+          
+      - name: Post comment
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Impact analsys for commit ${{ github.event.pull_request.head.sha }} is as follows:\n\n ```\n${{join(steps.impact.outputs.*, '\n')}}\n```'
+            })

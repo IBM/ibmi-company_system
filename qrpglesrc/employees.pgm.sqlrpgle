@@ -51,6 +51,8 @@ Dow (Not Exit);
   Exfmt SFLCTL;
 
   Select;
+    When (FUNKEY = F5);
+      DoABetterRefresh();
     When (Funkey = F12);
       Exit = *On;
     When (Funkey = ENTER);
@@ -83,7 +85,7 @@ Dcl-Proc LoadSubfile;
   ClearSubfile();
 
   EXEC SQL DECLARE empCur CURSOR FOR
-              SELECT EMPNO, FIRSTNME, LASTNAME, JOB
+              SELECT EMPNO, FIRSTNME, LASTNAME, JOB, EYECOLOUR, FAVCOLOUR
               FROM EMPLOYEE
               WHERE WORKDEPT = :DEPTNO;
 

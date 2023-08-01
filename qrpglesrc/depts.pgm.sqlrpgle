@@ -8,7 +8,7 @@
       //---------------------------------------------------------------*
 
       /include 'qrpgleref/constants.rpgleinc'
-
+      /include 'qrpgleref/utils.rpgleinc'
 
 
       //---------------------------------------------------------------*
@@ -109,7 +109,7 @@
 
                 if (sqlstate = '00000');
                   XID   = Department.DEPTNO;
-                  XNAME = Department.DEPTNAME;
+                  XNAME = ToLower(Department.DEPTNAME);
 
                   rrn += 1;
                   Write SFLDTA;

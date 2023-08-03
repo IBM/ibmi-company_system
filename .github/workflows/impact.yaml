@@ -17,11 +17,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Create dummy package-lock
+      run: echo "{}" > package-lock.json
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        
     - run: npm i -g @halcyontech/rmake
     - run: rmake -bf imd -l `git diff --name-only main`
     - name: Adding markdown

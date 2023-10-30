@@ -32,7 +32,7 @@ Dcl-DS WkStnInd;
 End-DS;
 
 Dcl-DS FILEINFO;
-  FUNKEY         Char(1)    Pos(369);
+  FunctionKey         Char(1)    Pos(369);
 End-DS;
 
       //---------------------------------------------------------------*
@@ -51,9 +51,9 @@ Dow (Not Exit);
   Exfmt SFLCTL;
 
   Select;
-    When (Funkey = F12);
+    When (FunctionKey = F12);
       Exit = *On;
-    When (Funkey = ENTER);
+    When (FunctionKey = ENTER);
       HandleInputs();
 
   Endsl;

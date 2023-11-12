@@ -47,5 +47,14 @@
       ".logs/joblog.json",
       ".logs/output.log"
     ]
+  },
+  {
+    "name": "Build current with Source Orbit 🔨",
+    "command": "so -bf make -s &RELATIVEPATH && /QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB OPT=*EVENTF",
+    "environment": "pase",
+    "deployFirst": true,
+    "extensions": [
+      "GLOBAL"
+    ]
   }
 ]

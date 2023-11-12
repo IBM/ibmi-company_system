@@ -7,7 +7,7 @@ CREATE OR REPLACE TABLE EMPLOYEE
        LASTNAME    VARCHAR(15)     NOT NULL,
        WORKDEPT    CHAR(3)                 ,
        PHONENO     CHAR(4)                 ,
-       HIREDATE    DATE                    ,
+       HIREDATE    DATE            NOT NULL,
        JOB         CHAR(8)                 ,
        EDLEVEL     SMALLINT        NOT NULL,
        SEX         CHAR(1)                 ,

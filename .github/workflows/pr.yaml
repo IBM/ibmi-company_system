@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Source Orbit Impact Report
 
 on:
   pull_request: 
@@ -23,8 +23,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+
       - name: Generate impact information
-        run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
+        # run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
+        run: so -bf imd -l ${{ steps.changed-files.outputs.all_changed_files }}
 
       - name: Adding markdown
         run: cat impact.md >> $GITHUB_STEP_SUMMARY

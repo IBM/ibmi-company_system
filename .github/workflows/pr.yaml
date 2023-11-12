@@ -1,0 +1,42 @@
+name: Node.js Package
+
+on:
+  pull_request: 
+    types: [opened]
+
+jobs:
+  publish-gpr:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    defaults:
+      run:
+        working-directory: ./cli
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/
+        
+      - run: npm i -g @ibm/sourceorbit
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Generate impact information
+        run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
+
+      - name: Adding markdown
+        run: cat impact.md >> $GITHUB_STEP_SUMMARY
+        
+      - name: Post comment
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
+            })

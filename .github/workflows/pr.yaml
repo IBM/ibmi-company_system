@@ -5,7 +5,7 @@ on:
     types: [opened]
 
 jobs:
-  publish-gpr:
+  so-impact:
     runs-on: ubuntu-latest
     permissions:
       packages: read

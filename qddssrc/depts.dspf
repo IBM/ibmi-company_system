@@ -27,7 +27,7 @@
      A                                      COLOR(WHT)
      A          R FOOTER_FMT
      A                                      OVERLAY
-     A                                  3  6'F3=Exit'
+     A                                  3  6'F3=Quit'
      A                                      COLOR(BLU)
      A                                  2 35'Departments'
      A                                      DSPATR(UL)

@@ -22,7 +22,7 @@
      A                                  6 12'ID'
      A                                      DSPATR(HI)
      A                                      DSPATR(UL)
-     A                                  6 16'Name'
+     A                                  6 16'Department'
      A                                      DSPATR(UL)
      A                                      COLOR(WHT)
      A          R FOOTER_FMT

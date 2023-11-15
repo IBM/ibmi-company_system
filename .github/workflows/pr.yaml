@@ -56,3 +56,8 @@ jobs:
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
             --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
+        env:
+          IBMI_HOST: ${{ secrets.IBMI_HOST }}
+          IBMI_USER: ${{ secrets.IBMI_USER }}
+          IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
+          IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}

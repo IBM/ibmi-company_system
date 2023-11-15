@@ -50,7 +50,7 @@
   },
   {
     "name": "Build current with Source Orbit 🔨",
-    "command": "so -bf make -s &RELATIVEPATH && /QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB OPT=*EVENTF",
+    "command": "so -bf make -s &RELATIVEPATH && /QOpenSys/pkgs/bin/gmake LIBL='&LIBLS' BIN_LIB=&CURLIB OPT=*EVENTF",
     "environment": "pase",
     "deployFirst": true,
     "extensions": [

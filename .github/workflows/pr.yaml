@@ -6,6 +6,7 @@ on:
 
 jobs:
   so-impact:
+    environment: COMMON1
     runs-on: ubuntu-latest
     permissions:
       packages: read

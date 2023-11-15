@@ -17,12 +17,16 @@ jobs:
         with:
           fetch-depth: 0
           
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
         
       - run: npm i -g @ibm/sourceorbit
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    
+      - run: npm i -g @ibm/ibmi-ci
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -42,3 +46,13 @@ jobs:
               repo: context.repo.repo,
               body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
             })
+
+      - name: Generate makefile
+        run: so -bf make -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
+
+      - name: Deploy to IBM i
+        run: | 
+          ici \
+            --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
+            --push "." \
+            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"

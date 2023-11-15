@@ -55,6 +55,9 @@
     "deployFirst": true,
     "extensions": [
       "GLOBAL"
+    ],
+    "postDownload": [
+      ".evfevent/"
     ]
   }
 ]

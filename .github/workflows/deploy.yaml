@@ -1,17 +1,16 @@
 name: Source Orbit Impact Report
 
 on:
-  pull_request: 
-    types: [opened]
+  push:
+    branches:
+      - master
 
 jobs:
-  so-impact:
+  ibmi-build:
     environment: COMMON1
     runs-on: ubuntu-latest
     permissions:
       packages: read
-      issues: write
-      pull-requests: write
       contents: read
     steps:
       - uses: actions/checkout@v4
@@ -31,25 +30,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Generate impact information
-        run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
-
-      - name: Adding markdown
-        run: cat impact.md >> $GITHUB_STEP_SUMMARY
-
-      - name: Post comment
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
-            })
-
       - name: Generate makefile
-        run: so -bf make -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
+        run: so -bf make
 
       - name: Deploy to IBM i
         run: | 
@@ -57,7 +39,7 @@ jobs:
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
-            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
+            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=CMPSYS"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}

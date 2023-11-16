@@ -3,7 +3,7 @@ name: Source Orbit Impact Report
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   ibmi-build:

@@ -141,6 +141,8 @@
                 When (SelVal = '5');
                   //DSPLY @XID;
                   Employees(XID);
+                When (SelVal = '8');
+                  // Insert new employee screen
               Endsl;
 
               If (XSEL <> *Blank);

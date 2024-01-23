@@ -7,7 +7,8 @@ all: depts.pgm.sqlrpgle employees.pgm.sqlrpgle mypgm.pgm.rpgle
 
 ## Targets
 
-depts.pgm.sqlrpgle: depts.dspf department.table
+depts.pgm.sqlrpgle: depts.dspf department.table newemp.pgm.sqlrpgle
+newemp.pgm.sqlrpgle: nemp.dspf
 employees.pgm.sqlrpgle: emps.dspf employee.table
 mypgm.pgm.rpgle: constants.rpgleinc
 

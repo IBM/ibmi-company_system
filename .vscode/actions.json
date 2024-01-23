@@ -9,6 +9,15 @@
     ]
   },
   {
+    "name": "Create SQLRPGLE Program",
+    "command": "CRTSQLRPGI OBJ(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH') OPTION(*EVENTF) DBGVIEW(*SOURCE) CLOSQLCSR(*ENDMOD) CVTCCSID(*JOB) COMPILEOPT('TGTCCSID(*JOB)') RPGPPOPT(*LVL2)",
+    "deployFirst": true,
+    "environment": "ile",
+    "extensions": [
+      "SQLRPGLE"
+    ]
+  },
+  {
     "name": "Call program",
     "command": "CALL &CURLIB/&NAME",
     "environment": "ile",

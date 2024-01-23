@@ -5,6 +5,10 @@
           DepartmentNumber Char(3);
         End-Pr;
 
+        Dcl-Pr NewEmp ExtPgm;
+          DepartmentNumber Char(3);
+        End-Pr;
+
       //---------------------------------------------------------------*
 
       /include 'qrpgleref/constants.rpgleinc'
@@ -143,6 +147,7 @@
                   Employees(XID);
                 When (SelVal = '8');
                   // Insert new employee screen
+                  NewEmp(XID);
               Endsl;
 
               If (XSEL <> *Blank);

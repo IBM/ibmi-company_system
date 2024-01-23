@@ -24,7 +24,7 @@
      A                                 10  2'Department'
      A                                      DSPATR(UL)
      A                                      COLOR(WHT)
-     A            XDEPT          3A  B 10 14
+     A            XDEPT          3A  O 10 14
 
      A                                 11  9'Job'
      A                                      DSPATR(UL)
@@ -36,7 +36,7 @@
      A                                      COLOR(WHT)
      A            XSAL          10A  B 12 14
 
-     A                                 13  8'Phone'
+     A                                 13  7'Phone'
      A                                      DSPATR(UL)
      A                                      COLOR(WHT)
      A            XTEL           4A  B 13 14

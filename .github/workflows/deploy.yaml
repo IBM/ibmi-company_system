@@ -20,15 +20,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: https://npm.pkg.github.com/
         
       - run: npm i -g @ibm/sourceorbit
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-    
       - run: npm i -g @ibm/ibmi-ci
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Generate makefile
         run: so -bf make

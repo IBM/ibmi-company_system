@@ -13,7 +13,7 @@ ALTER TABLE DEPARTMENT
           REFERENCES DEPARTMENT
           ON DELETE CASCADE;
 
--- Remove circular reference
+-- Remove circular reference Hello
 --ALTER TABLE DEPARTMENT
 --      ADD FOREIGN KEY RDE (MGRNO)
 --          REFERENCES EMPLOYEE

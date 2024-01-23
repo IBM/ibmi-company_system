@@ -5,6 +5,8 @@ Dcl-Pi EMPLOYEES;
   DEPTNO Char(3);
 End-Pi;
 
+//Hello
+
       //---------------------------------------------------------------*
 
 /include 'qrpgleref/constants.rpgleinc'

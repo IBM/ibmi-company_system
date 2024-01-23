@@ -4,6 +4,10 @@ ctl-opt dftactgrp(*no);
 
 // TODO: need a way to let the parent program pass in a department id
 
+dcl-pi NEWEMP;
+  currentDepartment Char(3);
+end-pi;
+
 // ---------------------------------------------------------------*
 
 /INCLUDE 'qrpgleref/constants.rpgleinc'
@@ -46,6 +50,8 @@ else;
   XID = autoEmpId;
 Endif;
 
+XDEPT = currentDepartment;
+
 Dow (NOT Exit);
 
   Write HEADER_FMT;
@@ -82,7 +88,7 @@ Dcl-Proc HandleInsert;
   newEmp.FIRSTNME = XFIRST;
   newEmp.MIDINIT = XINIT;
   newEmp.LASTNAME = XLAST;
-  newEmp.WORKDEPT = XDEPT;
+  newEmp.WORKDEPT = currentDepartment;
   newEmp.JOB = XJOB;
   newEmp.HIREDATE = %Date;
   newEmp.PHONENO = XTEL;
@@ -122,6 +128,8 @@ Dcl-Proc GetError;
     return 'Last name cannot be blank';
   endif;
 
+  // We have left this in so the user
+  // cannot continue if no dept is passed in.
   if (XDEPT = '');
     return 'Department cannot be blank';
   endif;

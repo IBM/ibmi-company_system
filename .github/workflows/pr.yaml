@@ -52,7 +52,7 @@ jobs:
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
-            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${secrets.NOVY_LIB})"
+            --cmd "/QOpenSys/pkgs/bin/gmake LIBL==$(so -bl ${secrets.USER_LIB}) BIN_LIB=$(so -bl ${secrets.USER_LIB})"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}

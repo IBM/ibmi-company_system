@@ -34,7 +34,7 @@ jobs:
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
-            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB= ${{ secrets.USER_LIB }}"
+            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${secrets.USER_LIB})"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}

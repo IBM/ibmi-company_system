@@ -6,7 +6,7 @@ on:
 
 jobs:
   so-impact:
-    environment: COMMON1
+    environment: PUB400
     runs-on: ubuntu-latest
     permissions:
       packages: read
@@ -52,7 +52,7 @@ jobs:
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
-            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
+            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${secrets.NOVY_LIB})"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}

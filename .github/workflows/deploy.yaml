@@ -28,7 +28,7 @@ jobs:
       - name: Generate makefile
         run: so -bf make
       - name: Tell me a secret!
-        run: echo "My existing secret is ${{ secrets.ffIBMI_HOST }}"
+        run: node -v
       - name: Deploy to IBM i
         run: | 
           ici \

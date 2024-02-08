@@ -36,6 +36,7 @@ Dcl-DS FILEINFO;
 End-DS;
 
       //---------------------------------------------------------------*
+        //  test yvon un seul modif  ??? make 
       //
 Dcl-S Index Int(5);
 

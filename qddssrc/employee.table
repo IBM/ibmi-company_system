@@ -9,7 +9,7 @@ CREATE OR REPLACE TABLE EMPLOYEE
        PHONENO     CHAR(4)                 ,
        HIREDATE    DATE                    ,
        JOB         CHAR(8)                 ,
-       EDLEVEL     SMALLINT        NOT NULL,
+       EDLEVEL     SMALLINT,
        SEX         CHAR(1)                 ,
        BIRTHDATE   DATE                    ,
        SALARY      DECIMAL(9,2)            ,

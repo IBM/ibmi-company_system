@@ -31,9 +31,9 @@ jobs:
       - name: Deploy to IBM i
         run: | 
           ici \
-            --cmd "rm -rf './builds/ics_${GITHUB_HEAD_REF}'" \          
-            --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
-            --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
+            --cmd "rm -rf './builds/ics_${GITHUB_REF_NAME}'" \          
+            --cmd "mkdir -p './builds/ics_${GITHUB_REF_NAME}'" \
+            --rcwd "./builds/ics_${GITHUB_REF_NAME}" \
             --push "." \
             --cmd "mkdir .logs" \
             --cmd "mkdir .efvevent" \

@@ -37,7 +37,7 @@ End-DS;
 
       //---------------------------------------------------------------*
         //  test yvon un seul modif  ??? make 
-      //
+      // nouvzellle mdif 
 Dcl-S Index Int(5);
 
 Dcl-Ds Employee ExtName('EMPLOYEE') Alias Qualified;

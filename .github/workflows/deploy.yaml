@@ -7,7 +7,7 @@ on:
 
 jobs:
   ibmi-build:
-    environment: PUB400
+    environment: pub400_dev
     runs-on: ubuntu-latest
     permissions:
       packages: read
@@ -31,6 +31,7 @@ jobs:
       - name: Deploy to IBM i
         run: | 
           ici \
+            --cmd "rm -rf './builds/ics_${GITHUB_HEAD_REF}'" \          
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \

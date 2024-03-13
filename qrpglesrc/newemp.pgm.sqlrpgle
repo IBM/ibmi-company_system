@@ -45,7 +45,7 @@ dcl-s currentError like(XERR);
 autoEmpId = getNewEmpId();
 
 if (autoEmpId = '');
-  XERR = 'Unable to automatically generate an new ID.';
+  XERR = 'Something went really wrong.';
 else;
   XID = autoEmpId;
 Endif;

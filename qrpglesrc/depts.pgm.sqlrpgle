@@ -113,7 +113,7 @@
 
                 if (sqlstate = '00000');
                   XID   = Department.DEPTNO;
-                  XNAME = Department.DEPTNAME;
+                  // XNAME = Department.DEPTNAME;
 
                   rrn += 1;
                   Write SFLDTA;

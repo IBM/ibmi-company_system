@@ -5,7 +5,7 @@
      A* DISPLAY DTA
      A            XSEL           1A  B  7  8
      A            XID            3A  O  7 12
-     A***         XNAME         38A  O  7 16
+     A            XNAME         38A  O  7 16
      A* COLOR                  HELLO
      A          R SFLCTL                    SFLCTL(SFLDTA)
      A                                      SFLPAG(0014)

@@ -45,7 +45,7 @@ dcl-s currentError like(XERR);
 autoEmpId = getNewEmpId();
 
 if (autoEmpId = '');
-  XERR = 'Unable to automatically generate an new ID.';
+  XERR = 'Can''t find the next employee id.';
 else;
   XID = autoEmpId;
 Endif;
@@ -121,7 +121,7 @@ Dcl-Proc GetError;
   endif;
 
   if (XINIT = '');
-    return 'Middle initial cannot be blank';
+    return 'Cannot be blank';
   endif;
 
   if (XLAST = '');

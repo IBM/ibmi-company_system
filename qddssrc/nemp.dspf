@@ -36,9 +36,9 @@
      A                                      COLOR(WHT)
      A            XSAL          10A  B 12 14
 
-     A                                 13  7'Phone'
+     A                                 13  7'Num.'
      A                                      DSPATR(UL)
-     A                                      COLOR(WHT)
+     A                                      COLOR(BLU)
      A            XTEL           4A  B 13 14
 
      A            XERR          50A  O 15 14COLOR(RED)

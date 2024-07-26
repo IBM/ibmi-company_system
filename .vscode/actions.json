@@ -1,6 +1,6 @@
 [
   {
-    "name": "Compile with CRTBNDRPG 🔨",
+    "name": "Compile with CRTBNDRPG 🔨🔥",
     "command": "CRTBNDRPG PGM(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH') OPTION(*EVENTF) DBGVIEW(*SOURCE) TGTRLS(*CURRENT) TGTCCSID(*JOB)",
     "environment": "ile",
     "deployFirst": true,

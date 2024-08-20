@@ -1,3 +1,7 @@
+-------------------------------------------------------------------------------
+-- This procedure will create 5 records into the department table
+-------------------------------------------------------------------------------
+
 create or replace procedure popdept()
 language sql
 Result Sets 0
@@ -29,7 +33,7 @@ begin
 
         -- Insert into department table
         insert into department (deptno, deptname, mgrno, admrdept, location)
-        values (deptno, deptname, mgrno, admrdept, loc);
+        values (deptno, deptname, mgrno, admrdept, loc) with nc;
 
         set i = i + 1;
     end while;

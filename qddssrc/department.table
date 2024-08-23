@@ -1,5 +1,5 @@
 --https://www.ibm.com/docs/en/i/7.3?topic=tables-department-table-department
-
+--added a line on vscode from ifs.
 CREATE OR REPLACE TABLE DEPARTMENT
       (DEPTNO    CHAR(3)           NOT NULL,
        DEPTNAME  VARCHAR(36)       NOT NULL,

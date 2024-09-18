@@ -3,6 +3,9 @@
 -- You may specify the Nationality to generate country specific data like ('fr') or ('in')
 -- The default nationality is ('gb'). 
 -- For every run, this procedure will add 200 records to the employee table.
+--
+-- Note: If you're getting the error HTTP_GET in SYSTOOLS type *N not found, then you may
+--       use SYSTOOLS.HTTPGETCLOB instead. You may find both the api's in this source. 
 -------------------------------------------------------------------------------
 create or replace procedure popemp(
   in  Nationality char(2) default 'gb'

@@ -26,6 +26,8 @@ jobs:
     
       - run: npm i -g @ibm/ibmi-ci
 
+      - run: npm i -g @halcyontech/rpglint
+
       - name: Generate impact information
         run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
 
@@ -46,13 +48,16 @@ jobs:
       - name: Generate makefile
         run: so -bf make -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
 
+      - name: Generate lint information
+        run: rpglint
+
       - name: Deploy to IBM i
         run: | 
           ici \
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
-            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
+            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='${{ vars.IBMI_LIB }}' BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}

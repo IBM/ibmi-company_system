@@ -25,6 +25,11 @@ jobs:
     
       - run: npm i -g @ibm/ibmi-ci
 
+      - run: npm i -g @halcyontech/rpglint
+
+      - name: Generate lint information
+        run: rpglint
+
       - name: Generate makefile
         run: so -bf make
 
@@ -34,7 +39,7 @@ jobs:
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
-            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=CMPSYS"
+            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=${{ vars.IBMI_LIB }}"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}

@@ -23,7 +23,7 @@
      A                                  6 12'ID'
      A                                      DSPATR(HI)
      A                                      DSPATR(UL)
-     A                                  6 20'Name'
+     A                                  6 20'Fullname'
      A                                      DSPATR(UL)
      A                                      COLOR(WHT)
      A                                  6 52'Job'

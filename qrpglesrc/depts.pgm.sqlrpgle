@@ -13,8 +13,6 @@
 
       /include 'qrpgleref/constants.rpgleinc'
 
-
-
       //---------------------------------------------------------------*
 
      Fdepts     CF   E             WorkStn Sfile(SFLDta:Rrn)
@@ -104,14 +102,14 @@
 
             EXEC SQL OPEN deptCur;
 
-            if (sqlstate = '00000');
+            if (sqlstate = SQL_SUCCESS);
 
-              dou (sqlstate <> '00000');
+              dou (sqlstate <> SQL_SUCCESS);
                 EXEC SQL
                   FETCH NEXT FROM deptCur
                   INTO :Department.DEPTNO, :Department.DEPTNAME;
 
-                if (sqlstate = '00000');
+                if (sqlstate = SQL_SUCCESS);
                   XID   = Department.DEPTNO;
                   XNAME = Department.DEPTNAME;
 

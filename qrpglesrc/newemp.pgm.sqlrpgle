@@ -14,7 +14,7 @@ end-pi;
 
 // ---------------------------------------------------------------*
 
-Dcl-F nemp WORKSTN IndDS(WkStnInd) InfDS(fileinfo);
+Dcl-F nemp WORKSTN IndDS(WkStnInd) InfDS(FILEINFO);
 
 Dcl-S Exit Ind Inz(*Off);
 
@@ -44,7 +44,7 @@ dcl-s currentError like(XERR);
 
 autoEmpId = getNewEmpId();
 
-if (autoEmpId = '');
+if (autoEmpId = EMPTY);
   XERR = 'Unable to automatically generate an new ID.';
 else;
   XID = autoEmpId;
@@ -62,7 +62,7 @@ Dow (NOT Exit);
   if (FUNKEY = F12);
     Exit = *On;
 
-  elseif (currentError = '');
+  elseif (currentError = EMPTY);
     // TODO: handle insert and exit
     
     if (HandleInsert());
@@ -108,7 +108,7 @@ Dcl-Proc HandleInsert;
     values (:newEmp)
     with nc;
 
-  return (sqlstate = '00000');
+  return (sqlstate = SQL_SUCCESS);
 End-Proc;
 
 Dcl-Proc GetError;
@@ -116,29 +116,29 @@ Dcl-Proc GetError;
   dcl-s salaryNumber like(Employee.SALARY);
   dcl-s phoneNumber int(5);
 
-  if (XFIRST = '');
+  if (XFIRST = EMPTY);
     return 'First name cannot be blank';
   endif;
 
-  if (XINIT = '');
+  if (XINIT = EMPTY);
     return 'Middle initial cannot be blank';
   endif;
 
-  if (XLAST = '');
+  if (XLAST = EMPTY);
     return 'Last name cannot be blank';
   endif;
 
   // We have left this in so the user
   // cannot continue if no dept is passed in.
-  if (XDEPT = '');
+  if (XDEPT = EMPTY);
     return 'Department cannot be blank';
   endif;
 
-  if (XJOB = '');
+  if (XJOB = EMPTY);
     return 'Phone number cannot be blank';
   endif;
 
-  if (XSAL = '');
+  if (XSAL = EMPTY);
     return 'Salary cannot be blank';
   else;
     // Validate it is a number
@@ -149,7 +149,7 @@ Dcl-Proc GetError;
     endmon;
   endif;
 
-  if (XTEL = '');
+  if (XTEL = EMPTY);
     return 'Phone cannot be blank';
   else;
     // Validate it is a number
@@ -160,7 +160,7 @@ Dcl-Proc GetError;
     endmon;
   endif;
 
-  return '';
+  return EMPTY;
 End-Proc;
 
 ///
@@ -176,19 +176,19 @@ Dcl-Proc getNewEmpId;
   dcl-s startI int(5);
   Dcl-s highestEmpId int(10);
 
-  result = '000000';
+  result = SQL_SUCCESS;
 
   EXEC SQL
     select max(int(empno))
     into :highestEmpId
     from employee;
     
-  if (sqlstate = '00000');
+  if (sqlstate = SQL_SUCCESS);
     asChar = %Char(highestEmpId+100);
     startI = 7 - %len(asChar);
     %subst(result : startI) = asChar;
     Return result;
   endif;
 
-  return '';
+  return EMPTY;
 End-Proc;

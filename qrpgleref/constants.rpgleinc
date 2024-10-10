@@ -1,3 +1,4 @@
+        // Key Codes
         Dcl-C F01        X'31';
         Dcl-C F02        X'32';
         Dcl-C F03        X'33';
@@ -24,3 +25,9 @@
         Dcl-C ENTER      X'F1';
         Dcl-C HELP       X'F3';
         Dcl-C PRINT      X'F6';
+
+        // SQLSTATE Values
+        Dcl-C SQL_SUCCESS '00000'
+
+        // 
+        Dcl-C EMPTY ''

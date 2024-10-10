@@ -14,8 +14,9 @@
   "PrettyComments": true,
   "NoGlobalSubroutines": true,
   "NoLocalSubroutines": true,
-  "UppercaseDirectives": true,
   "NoUnreferenced": false,
-  "NoExternalTo": ["qsygetph"],
+  "NoExternalTo": [
+    "qsygetph"
+  ],
   "NoExtProgramVariable": true
 }

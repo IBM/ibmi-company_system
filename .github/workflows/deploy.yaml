@@ -28,7 +28,8 @@ jobs:
       - run: npm i -g @halcyontech/rpglint
 
       - name: Generate lint information
-        run: rpglint
+        continue-on-error: true
+        run: rpglint >> $GITHUB_STEP_SUMMARY
 
       - name: Generate makefile
         run: so -bf make

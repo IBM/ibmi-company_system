@@ -27,7 +27,7 @@
         Dcl-C PRINT      X'F6';
 
         // SQLSTATE Values
-        Dcl-C SQL_SUCCESS '00000'
+        Dcl-C SQL_SUCCESS '00000';
 
         // 
-        Dcl-C EMPTY ''
+        Dcl-C EMPTY '';

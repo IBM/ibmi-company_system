@@ -12,9 +12,9 @@ CREATE OR REPLACE TABLE EMPLOYEE
        EDLEVEL     SMALLINT        NOT NULL,
        SEX         CHAR(1)                 ,
        BIRTHDATE   DATE                    ,
-       SALARY      DECIMAL(9,2)            ,
-       BONUS       DECIMAL(9,2)            ,
-       COMM        DECIMAL(9,2)            ,    
+       SALARY      DECIMAL(9, 2)           ,
+       BONUS       DECIMAL(9, 2)           ,
+       COMM        DECIMAL(9, 2)           ,    
        PRIMARY KEY (EMPNO)); 
 
 -- Remove circular reference

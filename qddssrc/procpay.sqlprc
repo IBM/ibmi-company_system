@@ -1,0 +1,44 @@
+-- Create or replace the stored procedure to process payroll
+CREATE OR REPLACE PROCEDURE procpay(
+    IN include_bonus BOOLEAN DEFAULT FALSE
+)
+LANGUAGE SQL
+RESULT SETS 0
+MODIFIES SQL DATA
+BEGIN
+    DECLARE v_empno CHAR(6);
+    DECLARE v_salary DECIMAL(9, 2);
+    DECLARE v_bonus DECIMAL(9, 2);
+    DECLARE v_payout_amount DECIMAL(9, 2);
+    DECLARE v_pay_date DATE;
+    
+    DECLARE emp_cursor CURSOR FOR
+        SELECT EMPNO, SALARY, BONUS
+        FROM EMPLOYEE;
+    
+    -- Set the payout date to the current date
+    SET v_pay_date = CURRENT_DATE;
+    
+    -- Open the cursor
+    OPEN emp_cursor;
+    
+    -- Loop through each employee record
+    FETCH emp_cursor INTO v_empno, v_salary, v_bonus;
+    WHILE SQLSTATE = '00000' DO
+        -- Calculate the payout amount
+        SET v_payout_amount = v_salary;
+        IF include_bonus THEN
+            SET v_payout_amount = v_payout_amount + v_bonus;
+        END IF;
+        
+        -- Insert the payout details into the PAYOUT table
+        INSERT INTO PAYOUT (EMPNO, PAY_DATE, AMOUNT)
+        VALUES (v_empno, v_pay_date, v_payout_amount);
+        
+        -- Fetch the next employee record
+        FETCH emp_cursor INTO v_empno, v_salary, v_bonus;
+    END WHILE;
+    
+    -- Close the cursor
+    CLOSE emp_cursor;
+END;

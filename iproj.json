@@ -4,17 +4,10 @@
   "includePath": [
     "qrpgleref"
   ],
+  "setIBMiEnvCmd": [],
   "curlib": "&CURLIB",
   "objlib": "&CURLIB",
-  
   "compiles": {
-    "test": {
-      "becomes": "SRVPGM",
-      "preCommands": [
-        "liblist -c $(BIN_LIB); liblist -a $(LIBL); system \"CRTRPGMOD MODULE($(BIN_LIB)/TEST.TEST) SRCSTMF('qrpglesrc/test.test.rpgle') OPTION(*EVENTF) DBGVIEW(*SOURCE) TGTRLS(*CURRENT) TGTCCSID(*JOB)\" > .logs/test.test.splf || (system \"CPYTOSTMF FROMMBR('$(PREPATH)/EVFEVENT.FILE/TEST.TEST.MBR') TOSTMF('.evfevent/test.test.evfevent') DBFCCSID(*FILE) STMFCCSID(1208) STMFOPT(*REPLACE)\"; $(SHELL) -c 'exit 1')",
-        "system \"CRTSRVPGM SRVPGM($(BIN_LIB)/$*) MODULE($*) SRCSTMF('$<') BNDDIR($(RPGUNIT_LIB)) REPLACE(*YES)\" > .logs/test.splf"
-      ]
-    },
     "pgm": {
       "becomes": "PGM",
       "command": "CRTPGM",
@@ -149,6 +142,14 @@
         "commit": "*NONE"
       }
     },
+    "index": {
+      "becomes": "FILE",
+      "command": "RUNSQLSTM",
+      "parameters": {
+        "srcstmf": "'$<'",
+        "commit": "*NONE"
+      }
+    },
     "binder": {
       "becomes": "SRVPGM",
       "preCommands": [
@@ -169,7 +170,8 @@
     "bnd": {
       "becomes": "SRVPGM",
       "preCommands": [
-        "-system -q \"CRTBNDDIR BNDDIR($(BIN_LIB)/$(APP_BNDDIR))\""
+        "-system -q \"CRTBNDDIR BNDDIR($(BIN_LIB)/$(APP_BNDDIR))\"",
+        "-system -q \"ADDBNDDIRE BNDDIR($(BIN_LIB)/$(APP_BNDDIR)) OBJ((*LIBL/RUTESTCASE *SRVPGM *IMMED))\""
       ],
       "command": "CRTSRVPGM",
       "parameters": {
@@ -177,6 +179,7 @@
         "module": "*MODULES",
         "srcstmf": "'$<'",
         "bnddir": "$(BNDDIR)",
+        "option": "*DUPPROC",
         "replace": "*YES"
       },
       "postCommands": [

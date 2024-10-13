@@ -1,0 +1,1 @@
+create index XEMP2 on EMPLOYEE (WORKDEPT);

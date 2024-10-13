@@ -40,7 +40,7 @@ jobs:
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
-            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=${{ vars.IBMI_LIB }}" \
+            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=${{ vars.IBMI_LIB }} LIBL=${{ vars.IBMI_RPGUNIT_LIB }}" \
             --ignore --cmd "/QOpenSys/pkgs/bin/gmake -f test/makefile BIN_LIB=${{ vars.IBMI_LIB }} RPGUNIT_LIB=${{ vars.IBMI_RPGUNIT_LIB }}" \
             --ignore --get "./test/TEST-report.xml" "./test/TEST-report.xml"
         env:

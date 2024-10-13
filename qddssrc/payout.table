@@ -1,4 +1,4 @@
-create table
+create or replace table
     PAYOUT (
         PAYOUTNO int not null generated ALWAYS as identity (
             start

@@ -1,9 +1,18 @@
 [
   {
-    "name": "Compile with CRTBNDRPG 🔨",
-    "command": "CRTBNDRPG PGM(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH') OPTION(*EVENTF) DBGVIEW(*SOURCE) TGTRLS(*CURRENT) TGTCCSID(*JOB)",
-    "environment": "ile",
+    "name": "Create RPGLE Program",
+    "command": "CRTBNDRPG PGM(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH') OPTION(*EVENTF) DBGVIEW(*SOURCE) TGTCCSID(*JOB)",
     "deployFirst": true,
+    "environment": "ile",
+    "extensions": [
+      "RPGLE"
+    ]
+  },
+  {
+    "name": "Create RPGLE Module",
+    "command": "CRTRPGMOD MODULE(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH') OPTION(*EVENTF) DBGVIEW(*SOURCE) TGTCCSID(*JOB)",
+    "deployFirst": true,
+    "environment": "ile",
     "extensions": [
       "RPGLE"
     ]
@@ -18,55 +27,38 @@
     ]
   },
   {
-    "name": "Call program",
-    "command": "CALL &CURLIB/&NAME",
+    "name": "Create SQLRPGLE Module",
+    "command": "CRTSQLRPGI OBJ(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH') OBJTYPE(*MODULE) OPTION(*EVENTF) DBGVIEW(*SOURCE) CLOSQLCSR(*ENDMOD) CVTCCSID(*JOB) COMPILEOPT('TGTCCSID(*JOB)') RPGPPOPT(*LVL2)",
+    "deployFirst": true,
+    "environment": "ile",
+    "extensions": [
+      "SQLRPGLE"
+    ]
+  },
+  {
+    "extensions": [
+      "SQL",
+      "TABLE",
+      "VIEW",
+      "SQLPRC",
+      "SQLUDF",
+      "SQLUDT",
+      "SQLTRG",
+      "SQLALIAS",
+      "SQLSEQ"
+    ],
+    "name": "Run SQL Statements (RUNSQLSTM)",
+    "command": "RUNSQLSTM SRCSTMF('&FULLPATH') COMMIT(*NONE) NAMING(*SQL)",
+    "deployFirst": true,
+    "environment": "ile"
+  },
+  {
+    "name": "Create DSPF",
+    "command": "CRTDSPF FILE(&CURLIB/&NAME) SRCFILE(&SRCFILE) RSTDSP(*NO) OPTION(*EVENTF)",
     "environment": "ile",
     "deployFirst": true,
     "extensions": [
-      "RPGLE"
-    ]
-  },
-  {
-    "name": "Build and deploy with make 🔨",
-    "command": "/QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB OPT=*EVENTF",
-    "environment": "pase",
-    "deployFirst": true,
-    "extensions": [
-      "GLOBAL"
-    ]
-  },
-  {
-    "name": "Build and deploy current with make 🔨",
-    "command": "/QOpenSys/pkgs/bin/gmake &BASENAME BIN_LIB=&CURLIB OPT=*EVENTF",
-    "environment": "pase",
-    "deployFirst": true,
-    "extensions": [
-      "GLOBAL"
-    ]
-  },
-  {
-    "name": "Build and deploy with bob 🔨",
-    "command": "/QOpenSys/pkgs/bin/makei build",
-    "environment": "pase",
-    "deployFirst": true,
-    "extensions": [
-      "GLOBAL"
-    ],
-    "postDownload": [
-      ".logs/joblog.json",
-      ".logs/output.log"
-    ]
-  },
-  {
-    "name": "Build current with Source Orbit 🔨",
-    "command": "so -bf make -s &RELATIVEPATH && /QOpenSys/pkgs/bin/gmake LIBL='&LIBLS' BIN_LIB=&CURLIB OPT=*EVENTF",
-    "environment": "pase",
-    "deployFirst": true,
-    "extensions": [
-      "GLOBAL"
-    ],
-    "postDownload": [
-      ".evfevent/"
+      "dspf"
     ]
   }
 ]

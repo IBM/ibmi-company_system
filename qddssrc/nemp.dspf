@@ -11,7 +11,7 @@
      A                                      COLOR(WHT)
      A            XFIRST        12A  B  7 14
 
-     A                                  8  5'Initial'
+     A                                  8 10'I.'
      A                                      DSPATR(UL)
      A                                      COLOR(WHT)
      A            XINIT          1A  B  8 14
@@ -21,7 +21,7 @@
      A                                      COLOR(WHT)
      A            XLAST         15A  B  9 14
 
-     A                                 10  2'Department'
+     A                                 10  8'Dept'
      A                                      DSPATR(UL)
      A                                      COLOR(WHT)
      A            XDEPT          3A  O 10 14

@@ -10,7 +10,7 @@ Dcl-PR printf Int(10) extproc('printf');
   input Pointer value options(*string);
 End-PR;
 
-mytext = 'Hello, I am testing a broken change for a demo!;
+mytext = 'Hello, I am testing a broken change for a demo!'';
 printf(mytext);
 
 dsply mytext;

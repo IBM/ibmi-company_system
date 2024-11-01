@@ -1,8 +1,7 @@
 name: Source Orbit Impact Report
 
 on:
-  pull_request: 
-    types: [opened]
+  pull_request:
 
 jobs:
   so-impact:

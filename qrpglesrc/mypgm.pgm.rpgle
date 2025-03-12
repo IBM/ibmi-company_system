@@ -10,7 +10,7 @@ Dcl-PR printf Int(10) extproc('printf');
   input Pointer value options(*string);
 End-PR;
 
-mytext = 'Hello to all you people';
+mytext = 'Hello all!';
 printf(mytext);
 
 dsply mytext;

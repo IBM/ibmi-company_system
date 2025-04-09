@@ -80,6 +80,8 @@ Dcl-Proc LoadSubfile;
   Dcl-S Action  Char(1);
   Dcl-S LongAct Char(3);
 
+  // Hello to NEUGC
+
   ClearSubfile();
 
   EXEC SQL DECLARE empCur CURSOR FOR

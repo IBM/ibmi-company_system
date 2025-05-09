@@ -22,11 +22,11 @@ dcl-proc setUpSuite export;
 
   // Insert sample data in department table
   exec sql
-    insert into employee (
+    insert into department (
       deptno, deptname, mgrno, admrdept, location
-    ) values (
-      'A00', 'SPIFFY COMPUTER SERVICE DIV.', '000010', 'A00', null
-    );
+    ) values
+      ('A00', 'SPIFFY COMPUTER SERVICE DIV.', '000010', 'A00', 'NEW YORK'),
+      ('B01', 'PLANNING', '000020', 'A00', 'ATLANTA');
 
   if (sqlcode <> 0 and sqlcode <> -803);
     fail('Failed to insert into department table');
@@ -37,7 +37,7 @@ dcl-proc tearDownSuite export;
   // Delete sample data from employee
   exec sql
     delete from employee
-    where empno = '000010';
+    where empno in ('000010', '000020', '200120');
     
   if (sqlcode <> 0);
     fail('Failed to delete from employee table');
@@ -47,7 +47,7 @@ dcl-proc tearDownSuite export;
   // Delete sample data from department
   exec sql
     delete from department
-    where empno = 'A00';
+    where deptno in ('A00', 'B01');
     
   if (sqlcode <> 0);
     fail('Failed to delete from department table');

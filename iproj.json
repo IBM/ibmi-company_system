@@ -5,5 +5,8 @@
     "qrpgleref"
   ],
   "curlib": "&CURLIB",
-  "objlib": "&CURLIB"
+  "objlib": "&CURLIB",
+  "preUsrlibl": [
+    "RPGUNIT"
+  ]
 }

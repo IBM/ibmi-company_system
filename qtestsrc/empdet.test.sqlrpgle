@@ -95,7 +95,7 @@ dcl-proc test_getDeptDetail_found export;
   // Expected results
   expected.found = *on;
   expected.deptname = 'SPIFFY COMPUTER SERVICE DIV.';
-  expected.location = 'N/A';
+  expected.location = 'NEW YORK';
   expected.totalsalaries = 90160;
 
   // Assertions

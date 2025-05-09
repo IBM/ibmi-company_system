@@ -17,7 +17,7 @@ dcl-proc setUpSuite export;
       ('200120', 'GREG', '', 'ORLANDO', 'A00', '2167', '05/05/72', 'CLERK', 14, 'M', '10/18/42', 29250, 600, 2340);
   
   if (sqlcode <> 0 and sqlcode <> -803);
-    fail('Failed to inser into employee table');
+    fail('Failed to insert into employee table');
   endif;
 
   // Insert sample data in department table

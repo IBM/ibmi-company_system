@@ -13,7 +13,7 @@ dcl-proc getEmployeeDetail export;
 
   exec sql
     select
-      rtrim(firstnme) || ' ' || rtrim(lastname),
+      rtrim(firstnme) || ' ' || rtrim(midinit) || ' ' || rtrim(lastname),
       salary + bonus + comm
     into
       :employee_detail.name,

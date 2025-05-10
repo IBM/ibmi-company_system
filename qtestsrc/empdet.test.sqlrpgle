@@ -1,9 +1,12 @@
 **free
 
-ctl-opt nomain bnddir('APP');
+ctl-opt nomain;
 
 /include 'qrpgleref/empdet.rpgleinc'
 /include qinclude,TESTCASE
+
+exec sql
+  set option commit = *none;
 
 dcl-proc setUpSuite export;
   // Insert sample data into employee
@@ -17,7 +20,7 @@ dcl-proc setUpSuite export;
       ('200120', 'GREG', '', 'ORLANDO', 'A00', '2167', '05/05/72', 'CLERK', 14, 'M', '10/18/42', 29250, 600, 2340);
   
   if (sqlcode <> 0 and sqlcode <> -803);
-    fail('Failed to insert into employee table');
+    fail('Failed to insert into employee table with SQL code: ' + %char(sqlcode));
   endif;
 
   // Insert sample data in department table
@@ -29,7 +32,7 @@ dcl-proc setUpSuite export;
       ('B01', 'PLANNING', '000020', 'A00', 'ATLANTA');
 
   if (sqlcode <> 0 and sqlcode <> -803);
-    fail('Failed to insert into department table');
+    fail('Failed to insert into department table with SQL code: ' + %char(sqlcode));
   endif;
 end-proc;
 
@@ -40,7 +43,7 @@ dcl-proc tearDownSuite export;
     where empno in ('000010', '000020', '200120');
     
   if (sqlcode <> 0);
-    fail('Failed to delete from employee table');
+    fail('Failed to delete from employee table with SQL code: ' + %char(sqlcode));
     return;
   endif;
 
@@ -50,7 +53,7 @@ dcl-proc tearDownSuite export;
     where deptno in ('A00', 'B01');
     
   if (sqlcode <> 0);
-    fail('Failed to delete from department table');
+    fail('Failed to delete from department table with SQL code: ' + %char(sqlcode));
     return;
   endif;
 end-proc;

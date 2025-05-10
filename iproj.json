@@ -7,6 +7,7 @@
   "curlib": "&CURLIB",
   "objlib": "&CURLIB",
   "preUsrlibl": [
+    "&CURLIB",
     "RPGUNIT"
   ]
 }

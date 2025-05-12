@@ -36,28 +36,6 @@ dcl-proc setUpSuite export;
   endif;
 end-proc;
 
-dcl-proc tearDownSuite export;
-  // Delete sample data from employee
-  exec sql
-    delete from employee
-    where empno in ('000010', '000020', '200120');
-    
-  if (sqlcode <> 0);
-    fail('Failed to delete from employee table with SQL code: ' + %char(sqlcode));
-    return;
-  endif;
-
-  // Delete sample data from department
-  exec sql
-    delete from department
-    where deptno in ('A00', 'B01');
-    
-  if (sqlcode <> 0);
-    fail('Failed to delete from department table with SQL code: ' + %char(sqlcode));
-    return;
-  endif;
-end-proc;
-
 dcl-proc test_getEmployeeDetail_found export;
   dcl-pi *n extproc(*dclcase) end-pi;
 

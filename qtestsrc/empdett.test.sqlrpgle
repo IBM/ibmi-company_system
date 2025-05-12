@@ -1,6 +1,6 @@
 **free
 
-ctl-opt nomain;
+ctl-opt nomain BNDDIR('APP');
 
 /include 'qrpgleref/empdet.rpgleinc'
 /include qinclude,TESTCASE

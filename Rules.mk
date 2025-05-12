@@ -1,1 +1,1 @@
-SUBDIRS = qrpglesrc qddssrc
+SUBDIRS = qddssrc qsqlsrc qrpglesrc

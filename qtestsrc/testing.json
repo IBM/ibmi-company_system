@@ -5,9 +5,6 @@
             "dbgView": "*SOURCE",
             "cOption": [
                 "*EVENTF"
-            ],
-            "module": [
-                "EMPDET"
             ]
         }
     }

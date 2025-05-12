@@ -1,5 +1,5 @@
 **free
-Ctl-Opt DFTACTGRP(*no);
+Ctl-Opt DFTACTGRP(*no) BNDDIR('APP');
 
 Dcl-Pi EMPLOYEES;
   DEPTNO Char(3);
@@ -8,6 +8,7 @@ End-Pi;
       //---------------------------------------------------------------*
 
 /include 'qrpgleref/constants.rpgleinc'
+/include 'qrpgleref/empdet.rpgleinc'
 
       //---------------------------------------------------------------*
 
@@ -42,9 +43,19 @@ Dcl-S Index Int(5);
 Dcl-Ds Employee ExtName('EMPLOYEE') Alias Qualified;
 End-Ds;
 
+dcl-ds deptInfo likeds(department_detail_t);
+
         //------------------------------------------------------------reb04
 Exit = *Off;
 LoadSubfile();
+
+deptInfo = getDeptDetail(DEPTNO);
+
+if (NOT deptInfo.found);
+  return;
+endif;
+
+XTOT = deptInfo.totalsalaries;
 
 Dow (Not Exit);
   Write FOOTER_FMT;

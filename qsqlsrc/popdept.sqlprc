@@ -2,7 +2,7 @@
 -- This procedure will create 5 records into the department table
 -------------------------------------------------------------------------------
 
-create or replace procedure sanjula1.popdept()
+create or replace procedure popdept()
 language sql
 Result Sets 0
 Modifies SQL Data

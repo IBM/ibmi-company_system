@@ -8,6 +8,7 @@
   "objlib": "&CURLIB",
   "preUsrlibl": [
     "&CURLIB",
-    "RPGUNIT"
+    "RPGUNIT",
+    "QDEVTOOLS"
   ]
 }

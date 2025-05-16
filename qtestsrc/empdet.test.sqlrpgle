@@ -36,10 +36,10 @@ dcl-proc setUpSuite export;
   endif;
 end-proc;
 
-dcl-proc test_getEmployeeDetail_found export;
+dcl-proc test_getEmployeeDetail export;
   dcl-pi *n extproc(*dclcase) end-pi;
 
-  dcl-s empno CHAR(6);
+  dcl-s empno char(6);
   dcl-ds actual likeDs(employee_detail_t);
   dcl-ds expected likeDs(employee_detail_t);
 
@@ -50,7 +50,7 @@ dcl-proc test_getEmployeeDetail_found export;
   actual = getEmployeeDetail(empno);
 
   // Expected results
-  expected.found = *ON;
+  expected.found = *on;
   expected.name = 'CHRISTINE I HAAS';
   expected.netincome = 52750 + 1000 + 4220;
 
@@ -60,10 +60,10 @@ dcl-proc test_getEmployeeDetail_found export;
   assert(expected.netincome = actual.netincome : 'netincome');
 end-proc;
 
-dcl-proc test_getDeptDetail_found export;
+dcl-proc test_getDeptDetail export;
   dcl-pi *n extproc(*dclcase) end-pi;
 
-  dcl-s deptno CHAR(3);
+  dcl-s deptno char(3);
   dcl-ds actual likeDs(department_detail_t);
   dcl-ds expected likeDs(department_detail_t);
 
@@ -74,7 +74,7 @@ dcl-proc test_getDeptDetail_found export;
   actual = getDeptDetail(deptno);
 
   // Expected results
-  expected.found = *ON;
+  expected.found = *on;
   expected.deptname = 'SPIFFY COMPUTER SERVICE DIV.';
   expected.location = 'NEW YORK';
   expected.totalsalaries = 52750 + 1000 + 4220 + 29250 + 600 + 2340;

@@ -2,8 +2,8 @@
 
 ctl-opt nomain BNDDIR('APP');
 
-/include 'qrpgleref/empdet.rpgleinc'
 /include qinclude,TESTCASE
+/include qrpgleref/empdet.rpgleinc
 
 exec sql
   set option commit = *none;
@@ -36,12 +36,12 @@ dcl-proc setUpSuite export;
   endif;
 end-proc;
 
-dcl-proc test_getEmployeeDetail_found export;
+dcl-proc test_getEmployeeDetail export;
   dcl-pi *n extproc(*dclcase) end-pi;
 
   dcl-s empno char(6);
-  dcl-ds actual likeDS(employee_detail_t);
-  dcl-ds expected likeDS(employee_detail_t);
+  dcl-ds actual likeDs(employee_detail_t);
+  dcl-ds expected likeDs(employee_detail_t);
 
   // Input
   empno = '000010';
@@ -52,20 +52,20 @@ dcl-proc test_getEmployeeDetail_found export;
   // Expected results
   expected.found = *on;
   expected.name = 'CHRISTINE I HAAS';
-  expected.netincome = 57970;
+  expected.netincome = 52750 + 1000 + 4220;
 
   // Assertions
   nEqual(expected.found : actual.found : 'found');
   aEqual(expected.name : actual.name : 'name');
-  assert(expected.netincome = actual.netincome : 'netincome' );
+  assert(expected.netincome = actual.netincome : 'netincome');
 end-proc;
 
-dcl-proc test_getDeptDetail_found export;
+dcl-proc test_getDeptDetail export;
   dcl-pi *n extproc(*dclcase) end-pi;
 
   dcl-s deptno char(3);
-  dcl-ds actual likeDS(department_detail_t);
-  dcl-ds expected likeDS(department_detail_t);
+  dcl-ds actual likeDs(department_detail_t);
+  dcl-ds expected likeDs(department_detail_t);
 
   // Input
   deptno = 'A00';
@@ -77,7 +77,7 @@ dcl-proc test_getDeptDetail_found export;
   expected.found = *on;
   expected.deptname = 'SPIFFY COMPUTER SERVICE DIV.';
   expected.location = 'NEW YORK';
-  expected.totalsalaries = 90160;
+  expected.totalsalaries = 52750 + 1000 + 4220 + 29250 + 600 + 2340;
 
   // Assertions
   nEqual(expected.found : actual.found : 'found');

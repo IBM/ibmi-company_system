@@ -6,7 +6,7 @@
         End-Pr;
 
         Dcl-Pr NewEmp ExtPgm;
-          DepartmentNumber Char(3);
+          DeptNumb Char(3);
         End-Pr;
 
       //---------------------------------------------------------------*

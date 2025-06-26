@@ -6,7 +6,11 @@
             "cOption": [
                 "*EVENTF"
             ]
-        },
-        "prefix": "T_"
+        }
+    },
+    "codecov": {
+        "module": [
+            "EMPDET"
+        ]
     }
 }

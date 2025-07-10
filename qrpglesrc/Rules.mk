@@ -1,7 +1,7 @@
-EMPDET.MODULE: empdet.sqlrpgle EMPLOYEE.FILE DEPARTMENT.FILE
+DEPTS.PGM: depts.pgm.sqlrpgle qrpgleref/constants.rpgleinc EMPLOYEES.PGM NEWEMP.PGM DEPARTMENT.FILE DEPTS.FILE
 EMPDET.SRVPGM: empdet.bnd EMPDET.MODULE
+EMPDET.MODULE: empdet.sqlrpgle qrpgleref/empdet.rpgleinc EMPLOYEE.FILE DEPARTMENT.FILE
+EMPLOYEES.PGM: employees.pgm.sqlrpgle qrpgleref/constants.rpgleinc qrpgleref/empdet.rpgleinc EMPLOYEE.FILE EMPS.FILE APP.BNDDIR
+MYPGM.PGM: mypgm.pgm.rpgle qrpgleref/constants.rpgleinc
+NEWEMP.PGM: newemp.pgm.sqlrpgle qrpgleref/constants.rpgleinc EMPLOYEE.FILE NEMP.FILE
 APP.BNDDIR: app.bnddir EMPDET.SRVPGM
-EMPLOYEES.PGM: employees.pgm.sqlrpgle APP.BNDDIR EMPLOYEE.FILE EMPS.FILE
-DEPTS.PGM: depts.pgm.sqlrpgle EMPLOYEES.PGM NEWEMP.PGM DEPARTMENT.FILE DEPTS.FILE
-NEWEMP.PGM: newemp.pgm.sqlrpgle EMPLOYEE.FILE NEMP.FILE
-MYPGM.PGM: mypgm.pgm.rpgle

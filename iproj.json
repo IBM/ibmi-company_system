@@ -10,5 +10,6 @@
     "&CURLIB",
     "RPGUNIT",
     "QDEVTOOLS"
-  ]
+  ],
+  "buildCommand": "/QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB"
 }

@@ -43,7 +43,7 @@ jobs:
             --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
             --cmd "itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co"
             --pull ".itest"
-         env:
+        env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}
           IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}

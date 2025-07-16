@@ -27,6 +27,9 @@ jobs:
       - name: Install ibmi-ci
         run: npm i -g @ibm/ibmi-ci
     
+      - name: Install Source Orbit
+        run: npm i -g @ibm/sourceorbit
+
       # - name: Install ibmi-testing
       #   run: npm i -g @ibm/ibmi-testing
 

@@ -1,60 +1,59 @@
-name: Source Orbit Impact Report
+name: Build and Test PR on IBM i
 
 on:
   pull_request:
 
 jobs:
-  so-impact:
-    environment: COMMON1
+  ibmi:
+    environment: OSSBUILD
     runs-on: ubuntu-latest
     permissions:
       packages: read
       issues: write
       pull-requests: write
       contents: read
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
         with:
           node-version: 18
-        
-      - run: npm i -g @ibm/sourceorbit
     
-      - run: npm i -g @ibm/ibmi-ci
+      - name: Install ibmi-ci
+        run: npm i -g @ibm/ibmi-ci
+    
+      # - name: Install ibmi-testing
+      #   run: npm i -g @ibm/ibmi-testing
 
-      - name: Generate impact information
-        run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
-
-      - name: Adding markdown
-        run: cat impact.md >> $GITHUB_STEP_SUMMARY
-
-      - name: Post comment
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
-            })
-
-      - name: Generate makefile
-        run: so -bf make -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
-
-      - name: Deploy to IBM i
+      - name: Build and Test on IBM i
         run: | 
           ici \
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
             --ignore --cl "CRTLIB $(so -bl ${GITHUB_HEAD_REF})" \
-            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
+            --cmd "makei build CURLIB=$(so -bl ${GITHUB_HEAD_REF})" \
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}
           IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
           IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
+
+      # - name: Adding markdown
+      #   run: cat impact.md >> $GITHUB_STEP_SUMMARY
+
+      # - name: Post comment
+      #   uses: actions/github-script@v5
+      #   with:
+      #     script: |
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
+      #       })

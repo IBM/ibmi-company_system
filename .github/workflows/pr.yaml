@@ -41,22 +41,26 @@ jobs:
             --push "." \
             --ignore --cl "CRTLIB $(so -bl ${GITHUB_HEAD_REF})" \
             --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
-        env:
+            --cmd "itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co"
+            --pull ".itest"
+         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}
           IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
           IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
 
-      # - name: Adding markdown
-      #   run: cat impact.md >> $GITHUB_STEP_SUMMARY
+      - name: Add Summary Report
+        run: |
+          cat ./.itest/summary-report.md >> $GITHUB_STEP_SUMMARY
+          cat ./.itest/summary-report.md >> $SUMMARY_REPORT
 
-      # - name: Post comment
-      #   uses: actions/github-script@v5
-      #   with:
-      #     script: |
-      #       github.rest.issues.createComment({
-      #         issue_number: context.issue.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
-      #       })
+      - name: Post Comment to PR
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{ env.EVAL_OUTPUT }}'
+            })

@@ -53,7 +53,9 @@ jobs:
       - name: Add Summary Report
         run: |
           cat ./summary-report.md >> $GITHUB_STEP_SUMMARY
-          cat ./summary-report.md >> $SUMMARY_REPORT
+          echo "SUMMARY_REPORT<<EOF" >> $GITHUB_ENV
+          cat ./summary-report.md >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Post Comment to PR
         uses: actions/github-script@v5
@@ -63,7 +65,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '${{ env.EVAL_OUTPUT }}'
+              body: '${{ env.SUMMARY_REPORT }}'
             })
 
       - name: Upload Test and Coverage Logs

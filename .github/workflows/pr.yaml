@@ -52,9 +52,12 @@ jobs:
 
       - name: Add Summary Report
         run: |
-          cat ./summary-report.md >> $GITHUB_STEP_SUMMARY
           CONTENT=$(cat ./summary-report.md)
-          echo "SUMMARY_REPORT=$CONTENT" >> $GITHUB_ENV
+          SUMMARY="$(cat ./summary-report.md)"
+          echo "SUMMARY<<EOF" >> $GITHUB_ENV
+          echo "$SUMMARY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
 
       - name: Post Comment to PR
         uses: actions/github-script@v5

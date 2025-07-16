@@ -1,10 +1,10 @@
-name: Source Orbit Impact Report
+name: Build and Test PR
 
 on:
   pull_request:
 
 jobs:
-  so-impact:
+  ibmi:
     environment: COMMON1
     runs-on: ubuntu-latest
     permissions:
@@ -12,49 +12,72 @@ jobs:
       issues: write
       pull-requests: write
       contents: read
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
-      - uses: actions/setup-node@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
         with:
           node-version: 18
-        
-      - run: npm i -g @ibm/sourceorbit
     
-      - run: npm i -g @ibm/ibmi-ci
+      - name: Install ibmi-ci
+        run: npm i -g @ibm/ibmi-ci
+    
+      - name: Install Source Orbit
+        run: npm i -g @ibm/sourceorbit
 
-      - name: Generate impact information
-        run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
+      # - name: Install ibmi-testing
+      #   run: npm i -g @ibm/ibmi-testing
 
-      - name: Adding markdown
-        run: cat impact.md >> $GITHUB_STEP_SUMMARY
-
-      - name: Post comment
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
-            })
-
-      - name: Generate makefile
-        run: so -bf make -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
-
-      - name: Deploy to IBM i
+      - name: Build and Test
         run: | 
           ici \
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
             --ignore --cl "CRTLIB $(so -bl ${GITHUB_HEAD_REF})" \
-            --cmd "/QOpenSys/pkgs/bin/gmake LIBL='CMPSYS' BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
+            --ignore --cl "CLRLIB $(so -bl ${GITHUB_HEAD_REF})" \
+            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})" \
+            --cmd "itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co" \
+            --pull ".itest"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}
           IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
           IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
+
+      - name: Add Summary Report
+        run: |
+          cat ./summary-report.md >> $GITHUB_STEP_SUMMARY
+          CONTENT=$(cat ./summary-report.md)
+          SUMMARY_REPORT="$(cat ./summary-report.md)"
+          echo "SUMMARY_REPORT<<EOF" >> $GITHUB_ENV
+          echo "$SUMMARY_REPORT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Post Comment to PR
+        uses: actions/github-script@v5
+        env:
+          SUMMARY_REPORT: ${{ env.SUMMARY_REPORT }}
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${process.env.SUMMARY_REPORT}`
+            })
+
+      - name: Upload Test and Coverage Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibmi-testing-logs
+          path: |
+            ./summary-report.md
+            ./test-result.log
+            ./test-output.log
+            ./command-output.log

@@ -57,7 +57,7 @@ dcl-proc test_getEmployeeDetail_found export;
 
   expected.found = *on;
   expected.name = 'CHRISTINE I HAAS';
-  expected.netincome = 57970;
+  expected.netincome = 52750 + 1000 + 4220;
 
   nEqual(expected.found : actual.found : 'found');
   assert(expected.name = actual.name : 'name');
@@ -71,7 +71,8 @@ dcl-proc test_getEmployeeDetail_notFound export;
   dcl-ds actual likeDs(employee_detail_t) inz;
   dcl-ds expected likeDs(employee_detail_t) inz;
 
-  empno = '111111';
+  empno = '11111';
+
   actual = getEmployeeDetail(empno);
 
   expected.found = *off;

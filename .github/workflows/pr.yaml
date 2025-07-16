@@ -65,3 +65,13 @@ jobs:
               repo: context.repo.repo,
               body: '${{ env.EVAL_OUTPUT }}'
             })
+
+      - name: Upload Test and Coverage Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibmi-testing-logs
+          path: |
+            ./.itest/summary-report.md
+            ./.itest/test-result.log
+            ./.itest/test-output.log
+            ./.itest/command-output.log

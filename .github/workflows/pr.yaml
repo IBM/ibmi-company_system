@@ -52,8 +52,8 @@ jobs:
 
       - name: Add Summary Report
         run: |
-          cat ./.itest/summary-report.md >> $GITHUB_STEP_SUMMARY
-          cat ./.itest/summary-report.md >> $SUMMARY_REPORT
+          cat ./ibmi-company_system-fork/.itest/summary-report.md >> $GITHUB_STEP_SUMMARY
+          cat ./ibmi-company_system-fork/.itest/summary-report.md >> $SUMMARY_REPORT
 
       - name: Post Comment to PR
         uses: actions/github-script@v5
@@ -71,7 +71,7 @@ jobs:
         with:
           name: ibmi-testing-logs
           path: |
-            ./.itest/summary-report.md
-            ./.itest/test-result.log
-            ./.itest/test-output.log
-            ./.itest/command-output.log
+            ./ibmi-company_system-fork/.itest/summary-report.md
+            ./ibmi-company_system-fork/.itest/test-result.log
+            ./ibmi-company_system-fork/.itest/test-output.log
+            ./ibmi-company_system-fork/.itest/command-output.log

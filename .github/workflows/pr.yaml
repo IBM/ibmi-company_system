@@ -52,6 +52,7 @@ jobs:
 
       - name: Add Summary Report
         run: |
+          cat ./summary-report.md >> $GITHUB_STEP_SUMMARY
           CONTENT=$(cat ./summary-report.md)
           SUMMARY_REPORT="$(cat ./summary-report.md)"
           echo "SUMMARY_REPORT<<EOF" >> $GITHUB_ENV

@@ -5,7 +5,7 @@ on:
 
 jobs:
   ibmi:
-    environment: OSSBUILD
+    environment: COMMON1
     runs-on: ubuntu-latest
     permissions:
       packages: read

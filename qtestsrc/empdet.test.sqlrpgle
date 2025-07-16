@@ -15,9 +15,18 @@ dcl-proc setUpSuite export;
       empno, firstnme, midinit, lastname, workdept, phoneno,
       hiredate, job, edlevel, sex, birthdate, salary, bonus, comm
     ) values 
-      ('000010', 'CHRISTINE', 'I', 'HAAS', 'A00', '3978', '01/01/65', 'PRES', 18, 'F', null, 52750, 1000, 4220),
-      ('000020', 'MICHAEL', 'L', 'THOMPSON', 'B01', '3476', '10/10/73', 'MANAGER', 18, 'M', '02/02/48', 41250, 800, 3300),
-      ('200120', 'GREG', '', 'ORLANDO', 'A00', '2167', '05/05/72', 'CLERK', 14, 'M', '10/18/42', 29250, 600, 2340);
+      (
+        '000010', 'CHRISTINE', 'I', 'HAAS', 'A00', '3978', null,
+        'PRES', 18, 'F', null, 52750, 1000, 4220
+      ),
+      (
+        '000020', 'MICHAEL', 'L', 'THOMPSON', 'B01', '3476', null,
+        'MANAGER', 18, 'M', null, 41250, 800, 3300
+        ),
+      (
+        '200120', 'GREG', '', 'ORLANDO', 'A00', '2167', null,
+        'CLERK', 14, 'M', null, 29250, 600, 2340
+      );
   
   if (sqlcode <> 0 and sqlcode <> -803);
     fail('Failed to insert into employee table with SQL code: ' + %char(sqlcode));

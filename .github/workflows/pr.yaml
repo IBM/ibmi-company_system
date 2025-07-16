@@ -16,7 +16,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-          
+        with:
+          fetch-depth: 0
+
       - name: Setup Node.js 18
         uses: actions/setup-node@v3
         with:
@@ -35,7 +37,7 @@ jobs:
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
             --ignore --cl "CRTLIB $(so -bl ${GITHUB_HEAD_REF})" \
-            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl \'${GITHUB_HEAD_REF}\')"
+            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}

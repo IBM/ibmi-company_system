@@ -51,6 +51,7 @@ jobs:
           IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
 
       - name: Add Summary Report
+        continue-on-error: true
         run: |
           cat ./summary-report.md >> $GITHUB_STEP_SUMMARY
           CONTENT=$(cat ./summary-report.md)
@@ -63,6 +64,7 @@ jobs:
         uses: actions/github-script@v5
         env:
           SUMMARY_REPORT: ${{ env.SUMMARY_REPORT }}
+        continue-on-error: true
         with:
           script: |
             github.rest.issues.createComment({
@@ -74,6 +76,7 @@ jobs:
 
       - name: Upload Test and Coverage Logs
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: ibmi-testing-logs
           path: |

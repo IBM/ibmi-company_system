@@ -51,7 +51,7 @@ LoadSubfile();
 
 deptInfo = getDeptDetail(DEPTNO);
 
-if (NOT deptInfo.found);
+if (deptInfo.found);
   return;
 endif;
 

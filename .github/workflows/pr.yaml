@@ -33,6 +33,12 @@ jobs:
       # - name: Install ibmi-testing
       #   run: npm i -g @ibm/ibmi-testing
 
+      - name: Generate impact information
+        run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
+
+      - name: Adding markdown
+        run: cat impact.md >> $GITHUB_STEP_SUMMARY
+
       - name: Build and Test
         run: | 
           ici \

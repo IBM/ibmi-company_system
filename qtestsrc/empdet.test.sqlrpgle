@@ -50,7 +50,7 @@ dcl-proc test_getEmployeeDetail_found export;
   actual = getEmployeeDetail(empno);
 
   expected.found = *on;
-  expected.name = 'CHRISTINE I HAAA';
+  expected.name = 'CHRISTINE I HAAS';
   expected.netincome = 57970;
 
   nEqual(expected.found : actual.found : 'found');

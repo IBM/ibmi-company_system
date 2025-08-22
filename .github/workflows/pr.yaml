@@ -123,4 +123,6 @@ jobs:
 
       - name: Check Test Result
         if: steps.test.outcome == 'failure'
-        run: exit 1
+        run: |
+          echo "Tests failed. Check logs for details."
+          exit 1

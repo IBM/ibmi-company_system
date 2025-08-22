@@ -66,11 +66,14 @@ jobs:
           IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
 
       - name: Test
+        id: test
         continue-on-error: true
         run: | 
           ici \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
-            --cmd "itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co" \
+            --cmd "itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co"
+          ici \
+            --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --pull ".itest"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
@@ -109,3 +112,7 @@ jobs:
             ./test-result.log
             ./test-output.log
             ./command-output.log
+
+      - name: Check Test Result
+        if: steps.test.outcome == 'failure'
+        run: exit 1

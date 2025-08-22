@@ -50,7 +50,7 @@ jobs:
               body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
             })
 
-      - name: Build
+      - name: Run Build
         run: | 
           ici \
             --cmd "mkdir -p './builds/ics_${GITHUB_HEAD_REF}'" \
@@ -65,13 +65,21 @@ jobs:
           IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
           IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
 
-      - name: Test
+      - name: Run Tests
         id: test
         continue-on-error: true
         run: | 
           ici \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --cmd "itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co"
+        env:
+          IBMI_HOST: ${{ secrets.IBMI_HOST }}
+          IBMI_USER: ${{ secrets.IBMI_USER }}
+          IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
+          IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
+
+      - name: Download Test Logs
+        run: |
           ici \
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --pull ".itest"

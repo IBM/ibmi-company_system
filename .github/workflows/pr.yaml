@@ -55,7 +55,12 @@ jobs:
         id: test
         continue-on-error: true
         run: | 
-          itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co
+          itest \
+            --ld . \
+            --id /home/$IBMI_USER/builds/ics_${GITHUB_HEAD_REF} \
+            --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS \
+            --cl $(so -bl ${GITHUB_HEAD_REF}) \
+            --cc --sr --tr --to --co
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}
@@ -64,9 +69,8 @@ jobs:
 
       - name: Add Summary Report to Markdown
         run: |
-          cat ./summary-report.md >> $GITHUB_STEP_SUMMARY
-          CONTENT=$(cat ./summary-report.md)
-          SUMMARY_REPORT="$(cat ./summary-report.md)"
+          cat .itest/summary-report.md >> $GITHUB_STEP_SUMMARY
+          SUMMARY_REPORT="$(cat .itest/summary-report.md)"
           echo "SUMMARY_REPORT<<EOF" >> $GITHUB_ENV
           echo "$SUMMARY_REPORT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -83,7 +87,7 @@ jobs:
               repo: context.repo.repo,
               body: `
                     ## 🔭 Impact Analysis
-                    A new change report is available based on this PR being created.
+                    A new impact analysis report is available for this PR based on ${{ github.event.pull_request.head.sha }}.
                     
                     [See summary here.](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }})
                     

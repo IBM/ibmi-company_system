@@ -69,8 +69,8 @@ jobs:
 
       - name: Add Summary Report to Markdown
         run: |
-          cat .itest/summary-report.md >> $GITHUB_STEP_SUMMARY
-          SUMMARY_REPORT="$(cat .itest/summary-report.md)"
+          cat ./.itest/summary-report.md >> $GITHUB_STEP_SUMMARY
+          SUMMARY_REPORT="$(cat ./.itest/summary-report.md)"
           echo "SUMMARY_REPORT<<EOF" >> $GITHUB_ENV
           echo "$SUMMARY_REPORT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -99,8 +99,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ibmi-testing-logs
+          if-no-files-found: error
           path: |
-            .itest
+            ./.itest
 
       - name: Check Test Result
         if: steps.test.outcome == 'failure'

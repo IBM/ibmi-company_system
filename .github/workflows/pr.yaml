@@ -86,13 +86,13 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
-                    ## 🔭 Impact Analysis
-                    A new impact analysis report is available for this PR based on ${{ github.event.pull_request.head.sha }}.
-                    
-                    [See summary here.](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }})
-                    
-                    ${process.env.SUMMARY_REPORT}
-                    `
+              ## 🔭 Impact Analysis
+              A new impact analysis report is available for this PR based on ${{ github.event.pull_request.head.sha }}.
+              
+              Click [here](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }}) to view summary.
+              
+              ${process.env.SUMMARY_REPORT}
+              `
             })
 
       - name: Upload Test and Coverage Logs
@@ -100,10 +100,7 @@ jobs:
         with:
           name: ibmi-testing-logs
           path: |
-            ./summary-report.md
-            ./test-result.log
-            ./test-output.log
-            ./command-output.log
+            .itest
 
       - name: Check Test Result
         if: steps.test.outcome == 'failure'

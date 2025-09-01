@@ -8,10 +8,7 @@ jobs:
     environment: COMMON1
     runs-on: ubuntu-latest
     permissions:
-      packages: read
-      issues: write
       pull-requests: write
-      contents: read
 
     steps:
       - name: Checkout
@@ -30,8 +27,8 @@ jobs:
       - name: Install Source Orbit
         run: npm i -g @ibm/sourceorbit
 
-      # - name: Install ibmi-testing
-      #   run: npm i -g @ibm/ibmi-testing
+      - name: Install ibmi-testing
+        run: npm i -g @ibm/ibmi-testing
 
       - name: Generate Impact Analysis
         run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
@@ -65,24 +62,11 @@ jobs:
           IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
           IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
 
-      - name: Run Tests
+      - name: Run Unit Tests
         id: test
         continue-on-error: true
         run: | 
-          ici \
-            --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
-            --cmd "itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co"
-        env:
-          IBMI_HOST: ${{ secrets.IBMI_HOST }}
-          IBMI_USER: ${{ secrets.IBMI_USER }}
-          IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
-          IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
-
-      - name: Download Test Logs
-        run: |
-          ici \
-            --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
-            --pull ".itest"
+          itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}
@@ -108,7 +92,14 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${process.env.SUMMARY_REPORT}`
+              body: `
+                    ## 🔭 Impact Analysis
+                    A new change report is available based on this PR being created.
+                    
+                    [See summary here.](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }})
+                    
+                    ${process.env.SUMMARY_REPORT}
+                    `
             })
 
       - name: Upload Test and Coverage Logs

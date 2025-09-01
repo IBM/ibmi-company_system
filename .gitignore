@@ -1,5 +1,6 @@
 .evfevent
 .logs
+.itest
 .theia
 .elias
 .env

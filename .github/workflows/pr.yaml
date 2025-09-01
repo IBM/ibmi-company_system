@@ -27,8 +27,8 @@ jobs:
       - name: Install Source Orbit
         run: npm i -g @ibm/sourceorbit
 
-      - name: Install ibmi-testing
-        run: npm i -g @ibm/ibmi-testing
+      - name: Install itest
+        run: npm i -g @ibm/itest
 
       - name: Generate Impact Analysis
         run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`

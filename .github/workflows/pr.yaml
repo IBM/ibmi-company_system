@@ -36,17 +36,6 @@ jobs:
       - name: Adding Impact Analysis to Markdown
         run: cat impact.md >> $GITHUB_STEP_SUMMARY
 
-      - name: Post Impact Analysis Comment
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
-            })
-
       - name: Run Build
         run: | 
           ici \
@@ -82,7 +71,7 @@ jobs:
           echo "$SUMMARY_REPORT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Post Test Comment
+      - name: Post PR Comment
         uses: actions/github-script@v5
         env:
           SUMMARY_REPORT: ${{ env.SUMMARY_REPORT }}

@@ -33,6 +33,24 @@ jobs:
       - name: Generate Impact Analysis
         run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
 
+      - name: Post Impact Analysis Comment
+        uses: actions/github-script@v5
+        env:
+          SUMMARY_REPORT: ${{ env.SUMMARY_REPORT }}
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+              ## 🔭 Impact Analysis
+              A new impact analysis report is available for this PR based on ${{ github.event.pull_request.head.sha }}.
+              
+              Click [here](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }}) to view summary.
+              `
+            })
+
       - name: Adding Impact Analysis to Markdown
         run: cat impact.md >> $GITHUB_STEP_SUMMARY
 
@@ -75,7 +93,7 @@ jobs:
           echo "$SUMMARY_REPORT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Post PR Comment
+      - name: Post Unit Test Comment
         uses: actions/github-script@v5
         env:
           SUMMARY_REPORT: ${{ env.SUMMARY_REPORT }}
@@ -85,20 +103,14 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `
-              ## 🔭 Impact Analysis
-              A new impact analysis report is available for this PR based on ${{ github.event.pull_request.head.sha }}.
-              
-              Click [here](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }}) to view summary.
-              
-              ${process.env.SUMMARY_REPORT}
-              `
+              body: `${process.env.SUMMARY_REPORT}`
             })
 
       - name: Upload Test and Coverage Logs
         uses: actions/upload-artifact@v4
         with:
           name: ibmi-testing-logs
+          include-hidden-files: true
           if-no-files-found: error
           path: |
             ./.itest

@@ -6,7 +6,7 @@ ctl-opt nomain;
 
 dcl-proc getEmployeeDetail export;
   dcl-pi *n like(employee_detail_t);
-    empno char(6) const; 
+    empno char(6) const;
   end-pi;
 
   dcl-ds employee_detail likeds(employee_detail_t);

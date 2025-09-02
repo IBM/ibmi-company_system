@@ -87,11 +87,10 @@ jobs:
       - name: Add Summary Report to Markdown
         run: |
           cat ./.itest/summary-report.md >> $GITHUB_STEP_SUMMARY
-          {
-            echo 'SUMMARY_REPORT<<EOF'
-            cat ./.itest/summary-report.md
-            echo EOF
-          } >> "$GITHUB_ENV"
+          SUMMARY_REPORT="$(cat ./summary-report.md)"
+          echo "SUMMARY_REPORT<<EOF" >> $GITHUB_ENV
+          echo "$SUMMARY_REPORT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Post Unit Test Comment
         uses: actions/github-script@v5

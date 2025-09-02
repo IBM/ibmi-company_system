@@ -8,10 +8,7 @@ jobs:
     environment: COMMON1
     runs-on: ubuntu-latest
     permissions:
-      packages: read
-      issues: write
       pull-requests: write
-      contents: read
 
     steps:
       - name: Checkout
@@ -24,14 +21,11 @@ jobs:
         with:
           node-version: 18
     
-      - name: Install ibmi-ci
-        run: npm i -g @ibm/ibmi-ci
-    
-      - name: Install Source Orbit
-        run: npm i -g @ibm/sourceorbit
-
-      # - name: Install ibmi-testing
-      #   run: npm i -g @ibm/ibmi-testing
+      - name: Install CLI Tools
+        run: |
+          npm i -g @ibm/ibmi-ci
+          npm i -g @ibm/sourceorbit
+          npm i -g @ibm/itest
 
       - name: Generate Impact Analysis
         run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
@@ -41,14 +35,24 @@ jobs:
 
       - name: Post Impact Analysis Comment
         uses: actions/github-script@v5
+        env:
+          SUMMARY_REPORT: ${{ env.SUMMARY_REPORT }}
         with:
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋  A new change report is available based on this PR being created.\n\n[See summary here.](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/${{ github.run_id }})'
+              body: `
+              ## 🔭 Impact Analysis
+              A new impact analysis report is available for this PR based on ${{ github.event.pull_request.head.sha }}.
+              
+              Click [here](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${{ github.run_id }}) to view summary.
+              `
             })
+
+      - name: Generate makefile
+        run: so -bf make -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
 
       - name: Run Build
         run: | 
@@ -57,7 +61,6 @@ jobs:
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
             --ignore --cl "CRTLIB $(so -bl ${GITHUB_HEAD_REF})" \
-            --ignore --cl "CLRLIB $(so -bl ${GITHUB_HEAD_REF})" \
             --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
@@ -65,24 +68,16 @@ jobs:
           IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
           IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
 
-      - name: Run Tests
+      - name: Run Unit Tests
         id: test
         continue-on-error: true
         run: | 
-          ici \
-            --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
-            --cmd "itest --id . --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS --cl $(so -bl ${GITHUB_HEAD_REF}) --cc --sr --tr --to --co"
-        env:
-          IBMI_HOST: ${{ secrets.IBMI_HOST }}
-          IBMI_USER: ${{ secrets.IBMI_USER }}
-          IBMI_PASSWORD: ${{ secrets.IBMI_PASSWORD }}
-          IBMI_SSH_PORT: ${{ secrets.IBMI_SSH_PORT }}
-
-      - name: Download Test Logs
-        run: |
-          ici \
-            --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
-            --pull ".itest"
+          itest \
+            --ld . \
+            --id /home/$IBMI_USER/builds/ics_${GITHUB_HEAD_REF} \
+            --ll $(so -bl ${GITHUB_HEAD_REF}) RPGUNIT QDEVTOOLS \
+            --cl $(so -bl ${GITHUB_HEAD_REF}) \
+            --cc --sr --tr --to --co
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}
@@ -91,14 +86,13 @@ jobs:
 
       - name: Add Summary Report to Markdown
         run: |
-          cat ./summary-report.md >> $GITHUB_STEP_SUMMARY
-          CONTENT=$(cat ./summary-report.md)
-          SUMMARY_REPORT="$(cat ./summary-report.md)"
+          cat ./.itest/summary-report.md >> $GITHUB_STEP_SUMMARY
+          SUMMARY_REPORT="$(cat ./.itest/summary-report.md)"
           echo "SUMMARY_REPORT<<EOF" >> $GITHUB_ENV
           echo "$SUMMARY_REPORT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Post Test Comment
+      - name: Post Unit Test Comment
         uses: actions/github-script@v5
         env:
           SUMMARY_REPORT: ${{ env.SUMMARY_REPORT }}
@@ -115,11 +109,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ibmi-testing-logs
+          include-hidden-files: true
+          if-no-files-found: error
           path: |
-            ./summary-report.md
-            ./test-result.log
-            ./test-output.log
-            ./command-output.log
+            ./.itest
 
       - name: Check Test Result
         if: steps.test.outcome == 'failure'

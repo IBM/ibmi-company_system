@@ -21,17 +21,17 @@ jobs:
         with:
           node-version: 18
     
-      - name: Install ibmi-ci
-        run: npm i -g @ibm/ibmi-ci
-    
-      - name: Install Source Orbit
-        run: npm i -g @ibm/sourceorbit
-
-      - name: Install itest
-        run: npm i -g @ibm/itest
+      - name: Install CLI Tools
+        run: |
+          npm i -g @ibm/ibmi-ci
+          npm i -g @ibm/sourceorbit
+          npm i -g @ibm/itest
 
       - name: Generate Impact Analysis
         run: so -bf imd -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
+
+      - name: Adding Impact Analysis to Markdown
+        run: cat impact.md >> $GITHUB_STEP_SUMMARY
 
       - name: Post Impact Analysis Comment
         uses: actions/github-script@v5
@@ -51,8 +51,8 @@ jobs:
               `
             })
 
-      - name: Adding Impact Analysis to Markdown
-        run: cat impact.md >> $GITHUB_STEP_SUMMARY
+      - name: Generate makefile
+        run: so -bf make -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
 
       - name: Run Build
         run: | 
@@ -61,7 +61,6 @@ jobs:
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
             --ignore --cl "CRTLIB $(so -bl ${GITHUB_HEAD_REF})" \
-            --ignore --cl "CLRLIB $(so -bl ${GITHUB_HEAD_REF})" \
             --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${GITHUB_HEAD_REF})"
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
@@ -88,10 +87,11 @@ jobs:
       - name: Add Summary Report to Markdown
         run: |
           cat ./.itest/summary-report.md >> $GITHUB_STEP_SUMMARY
-          SUMMARY_REPORT="$(cat ./.itest/summary-report.md)"
-          echo "SUMMARY_REPORT<<EOF" >> $GITHUB_ENV
-          echo "$SUMMARY_REPORT" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          {
+            echo 'SUMMARY_REPORT<<EOF'
+            cat ./.itest/summary-report.md
+            echo EOF
+          } >> "$GITHUB_ENV"
 
       - name: Post Unit Test Comment
         uses: actions/github-script@v5

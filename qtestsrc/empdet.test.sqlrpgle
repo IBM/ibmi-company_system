@@ -104,7 +104,7 @@ dcl-proc test_getDeptDetail_notFound export;
   deptno = 'AAA';
   actual = getDeptDetail(deptno);
 
-  expected.found = *off;
+  expected.found = *on;
 
   nEqual(expected.found : actual.found : 'found');
 end-proc;

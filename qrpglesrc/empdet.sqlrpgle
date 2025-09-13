@@ -24,9 +24,9 @@ dcl-proc getEmployeeDetail export;
       empno = :empno;
 
   if (sqlcode = 0);
-    employee_detail.found = *on;
-  else;
     employee_detail.found = *off;
+  else;
+    employee_detail.found = *on;
   endif;
 
   return employee_detail;

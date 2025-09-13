@@ -52,7 +52,7 @@ jobs:
             })
 
       - name: Generate makefile
-        run: so -bf make
+        run: so -bf make -l `git diff --name-only origin/main origin/${GITHUB_HEAD_REF}`
 
       - name: Run Build
         run: | 

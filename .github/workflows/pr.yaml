@@ -61,7 +61,7 @@ jobs:
             --rcwd "./builds/ics_${GITHUB_HEAD_REF}" \
             --push "." \
             --ignore --cl "CRTLIB $(so -bl ${GITHUB_HEAD_REF})" \
-            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${GITHUB_HEAD_REF}) LIBL=\"$(so -bl ${GITHUB_HEAD_REF})  RPGUNIT QDEVTOOLS\""
+            --cmd "/QOpenSys/pkgs/bin/gmake BIN_LIB=$(so -bl ${GITHUB_HEAD_REF}) LIBL=\"$(so -bl ${GITHUB_HEAD_REF}) CMPSYS RPGUNIT QDEVTOOLS\""
         env:
           IBMI_HOST: ${{ secrets.IBMI_HOST }}
           IBMI_USER: ${{ secrets.IBMI_USER }}

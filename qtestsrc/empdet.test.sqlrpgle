@@ -101,10 +101,10 @@ dcl-proc test_getDeptDetail_notFound export;
   dcl-ds actual likeDs(department_detail_t) inz;
   dcl-ds expected likeDs(department_detail_t) inz;
 
-  deptno = 'AAA';
+  deptno = 'A99';
   actual = getDeptDetail(deptno);
 
-  expected.found = *on;
+  expected.found = *off;
 
   nEqual(expected.found : actual.found : 'found');
 end-proc;

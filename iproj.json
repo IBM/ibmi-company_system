@@ -11,5 +11,5 @@
     "RPGUNIT",
     "QDEVTOOLS"
   ],
-  "buildCommand": "/QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB"
+  "buildCommand": "/QOpenSys/pkgs/bin/gmake BIN_LIB=VS1CDFD502 LIBL=\"VS1CDFD502 CMPSYS RPGUNIT QDEVTOOL\""
 }

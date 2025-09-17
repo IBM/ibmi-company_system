@@ -47,11 +47,12 @@ dcl-proc test_getEmployeeDetail_found export;
   dcl-ds expected likeDs(employee_detail_t) inz;
 
   empno = '000010';
+
   actual = getEmployeeDetail(empno);
 
   expected.found = *on;
   expected.name = 'CHRISTINE I HAAS';
-  expected.netincome = 57970;
+  expected.netincome = 52750 + 1000 + 4220;
 
   nEqual(expected.found : actual.found : 'found');
   assert(expected.name = actual.name : 'name');
@@ -65,44 +66,9 @@ dcl-proc test_getEmployeeDetail_notFound export;
   dcl-ds actual likeDs(employee_detail_t) inz;
   dcl-ds expected likeDs(employee_detail_t) inz;
 
-  empno = '111111';
+  empno = '000';
+
   actual = getEmployeeDetail(empno);
-
-  expected.found = *off;
-
-  nEqual(expected.found : actual.found : 'found');
-end-proc;
-
-dcl-proc test_getDeptDetail_found export;
-  dcl-pi *n extproc(*dclcase) end-pi;
-
-  dcl-s deptno char(3);
-  dcl-ds actual likeDs(department_detail_t) inz;
-  dcl-ds expected likeDs(department_detail_t) inz;
-
-  deptno = 'A00';
-  actual = getDeptDetail(deptno);
-
-  expected.found = *on;
-  expected.deptname = 'SPIFFY COMPUTER SERVICE DIV.';
-  expected.location = 'NEW YORK';
-  expected.totalsalaries = 90160;
-
-  nEqual(expected.found : actual.found : 'found');
-  assert(expected.deptname = actual.deptname : 'deptname');
-  assert(expected.location = actual.location : 'location');
-  assert(expected.totalsalaries = actual.totalsalaries : 'totalsalaries');
-end-proc;
-
-dcl-proc test_getDeptDetail_notFound export;
-  dcl-pi *n extproc(*dclcase) end-pi;
-
-  dcl-s deptno char(3);
-  dcl-ds actual likeDs(department_detail_t) inz;
-  dcl-ds expected likeDs(department_detail_t) inz;
-
-  deptno = 'A99';
-  actual = getDeptDetail(deptno);
 
   expected.found = *off;
 

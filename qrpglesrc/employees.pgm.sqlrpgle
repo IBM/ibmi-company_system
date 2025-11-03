@@ -114,7 +114,7 @@ Dcl-Proc LoadSubfile;
         XID   = Employee.EMPNO;
         XNAME = %TrimR(Employee.LASTNAME) + ', '
                          + %TrimR(Employee.FIRSTNME);
-        XJOB  = Employee.JOB;
+        XJOB  = Employee.JOB + ' 1';
 
         rrn += 1;
         Write SFLDTA;

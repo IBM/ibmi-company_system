@@ -8,7 +8,33 @@ ctl-opt nomain ccsidcvt(*excp) ccsid(*char : *jobrun) BNDDIR('APP');
 exec sql
   set option commit = *none;
 
+dcl-proc setupMockTable;
+  dcl-pi *n;
+    table varchar(10) const;
+  end-pi;
+
+  dcl-s cmd varchar(5000);
+
+  cmd = 'CRTDUPOBJ OBJ(' + table +
+          ') FROMLIB(*LIBL) OBJTYPE(*FILE) TOLIB(QTEMP) NEWOBJ(' + table + ')';
+  exec sql
+    call qsys2.qcmdexc(:cmd);
+  if (sqlcode <> 0);
+    fail('Failed to create mock table ' + table + ' SQLCODE ' + %char(sqlcode));
+  endif;
+
+  cmd = 'OVRDBF FILE(' + table +
+          ') TOFILE(QTEMP/' + table + ') OVRSCOPE(*JOB)';
+  exec sql
+    call qsys2.qcmdexc(:cmd);
+  if (sqlcode <> 0);
+    fail('Failed to override table ' + table + ' SQLCODE ' + %char(sqlcode));
+  endif;
+end-proc;
+
 dcl-proc setUpSuite export;
+  setupMockTable('EMPLOYEE');
+
   // Insert sample data into employee
   exec sql
     insert into employee (
@@ -22,9 +48,11 @@ dcl-proc setUpSuite export;
       ('200120', 'GREG', '', 'ORLANDO', 'A00', '2167', '05/05/72',
         'CLERK', 14, 'M', '10/18/42', 29250, 600, 2340);
   
-  if (sqlcode <> 0 and sqlcode <> -803);
+  if (sqlcode <> 0);
     fail('Failed to insert into employee table with SQL code: ' + %char(sqlcode));
   endif;
+
+  setupMockTable('DEPARTMENT');
 
   // Insert sample data in department table
   exec sql
@@ -34,7 +62,7 @@ dcl-proc setUpSuite export;
       ('A00', 'SPIFFY COMPUTER SERVICE DIV.', '000010', 'A00', 'NEW YORK'),
       ('B01', 'PLANNING', '000020', 'A00', 'ATLANTA');
 
-  if (sqlcode <> 0 and sqlcode <> -803);
+  if (sqlcode <> 0);
     fail('Failed to insert into department table with SQL code: ' + %char(sqlcode));
   endif;
 end-proc;

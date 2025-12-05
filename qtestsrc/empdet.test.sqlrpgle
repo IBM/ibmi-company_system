@@ -20,7 +20,7 @@ dcl-proc setupMockTable;
   exec sql
     call qsys2.qcmdexc(:cmd);
   if (sqlcode <> 0);
-    fail('Failed to create mock table ' + table + ' SQLCODE ' + %char(sqlcode));
+    fail('Failed to create mock table ' + table + '. SQLCODE ' + %char(sqlcode));
   endif;
 
   cmd = 'OVRDBF FILE(' + table +
@@ -28,7 +28,7 @@ dcl-proc setupMockTable;
   exec sql
     call qsys2.qcmdexc(:cmd);
   if (sqlcode <> 0);
-    fail('Failed to override table ' + table + ' SQLCODE ' + %char(sqlcode));
+    fail('Failed to override table ' + table + '. SQLCODE ' + %char(sqlcode));
   endif;
 end-proc;
 
@@ -49,7 +49,7 @@ dcl-proc setUpSuite export;
         'CLERK', 14, 'M', '10/18/42', 29250, 600, 2340);
   
   if (sqlcode <> 0);
-    fail('Failed to insert into employee table with SQL code: ' + %char(sqlcode));
+    fail('Failed to insert into employee table. SQLCODE ' + %char(sqlcode));
   endif;
 
   setupMockTable('DEPARTMENT');
@@ -63,7 +63,7 @@ dcl-proc setUpSuite export;
       ('B01', 'PLANNING', '000020', 'A00', 'ATLANTA');
 
   if (sqlcode <> 0);
-    fail('Failed to insert into department table with SQL code: ' + %char(sqlcode));
+    fail('Failed to insert into department table. SQLCODE ' + %char(sqlcode));
   endif;
 end-proc;
 

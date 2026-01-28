@@ -35,7 +35,7 @@ git clone https://github.com/IBM/ibmi-company_system
 
 4. Navigate to the cloned repo directory & set the environment variable to point the library that we just created
 ```
-cd cmpsys && export CURLIB=CMPSYS
+cd ibmi-company_system && export CURLIB=CMPSYS
 ```
 
 5. Run the build using 

@@ -4,6 +4,7 @@
      A            RRN            4Y 0H
      A* DISPLAY DTA
      A* DISPLAY DTA
+     A* another comment
      A            XSEL           1A  B  7  8
      A            XID            3A  O  7 12
      A            XNAME         38A  O  7 16

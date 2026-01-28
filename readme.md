@@ -1,4 +1,4 @@
-## Company System app
+## Company System
 
 Company System is a demo application that works with three build tools:
 

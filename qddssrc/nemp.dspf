@@ -8,6 +8,7 @@
      A            XID            6A  O  6 14
 
      A                                  7  7'First'
+     A                                      DSPATR(HI)
      A                                      DSPATR(UL)
      A                                      COLOR(WHT)
      A            XFIRST        12A  B  7 14

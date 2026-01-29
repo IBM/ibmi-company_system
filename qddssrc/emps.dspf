@@ -2,7 +2,6 @@
      A                                      CA12(12)
      A          R SFLDTA                    SFL
      A            RRN            4Y 0H
-     A* DISPLAY DTA
      A            XSEL           1A  B  7  8
      A            XID            6A  O  7 12
      A            XNAME         30A  O  7 20

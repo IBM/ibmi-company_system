@@ -74,7 +74,7 @@ dcl-proc test_getEmployeeDetail_found export;
   dcl-ds actual likeDs(employee_detail_t) inz;
   dcl-ds expected likeDs(employee_detail_t) inz;
 
-  empno = '000010';
+  empno = '000011';
   actual = getEmployeeDetail(empno);
 
   expected.found = *on;

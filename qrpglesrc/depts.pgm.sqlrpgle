@@ -5,8 +5,12 @@
           DepartmentNumber Char(3);
         End-Pr;
 
+
         Dcl-Pr NewEmp ExtPgm;
           DepartmentNumber Char(3);
+        End-Pr;
+
+        Dcl-Pr NewDept ExtPgm;
         End-Pr;
 
       //---------------------------------------------------------------*
@@ -72,6 +76,8 @@
                 Exit = *On;
               When (Funkey = ENTER);
                 HandleInputs();
+              When (Funkey = F07);
+                NewDept();
             Endsl;
           Enddo;
 
